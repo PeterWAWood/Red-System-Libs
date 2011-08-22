@@ -1,7 +1,14 @@
 #!/usr/bin/ruby
 
-# builds and runs Red/System Libs tests
-# requires the file path-to-Red.txt to be in the same directory
+=begin 
+  Purpose     Builds and runs Red/System Library tests
+  Author      Peter W A Wood
+  Version     0.0.2
+  Rights      Copyright © 2011 Peter W A Wood. All rights reserved.
+  License     BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt
+
+  Notes       Requires the file path-to-Red.txt to be in the same directory.
+=end
 
 # extract the program name from the source file and
 #  work out where everything is
@@ -20,6 +27,7 @@ if !File.directory? runnable_dir then
 end
 
 # change current to red/system compiler directory
+#   required by the compiler
 Dir.chdir(compiler_dir)
 
 # compile, relocate executable and run
