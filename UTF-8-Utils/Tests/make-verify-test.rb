@@ -61,13 +61,14 @@ END_OF_TEMPLATE
 # declarations and initialisations
 test_num = 0
 tests_dir = File.expand_path(File.dirname(__FILE__))
+auto_dir = tests_dir + '/Auto'
 reds_libs_dir = tests_dir.slice(/\S+\/Red-System-Libs/)
 qt_path = IO.read(reds_libs_dir + "/path-to-Red.txt").chomp + 
           'red-system/tests/quick-test/quick-test.reds'
 uu_path = tests_dir.sub(/\/[tT]ests\Z/, '') + '/utf-8-utils.reds'
 test_header = test_header_template.sub(/###uu_path###/, uu_path).sub(/###qt_path###/, qt_path)
 test_footer = test_foooter_template
-file_out_path = tests_dir + '/verify-test.reds'
+file_out_path = auto_dir + '/verify-test.reds'
 
 # functions
 def to_Red_string(s)
@@ -91,6 +92,11 @@ end
 
 # executable part of the script
 puts 'Starting to make verify-test.reds'
+
+# make auto directory if needed
+if !File.directory? auto_dir then
+  Dir.mkdir auto_dir
+end
 
 file_out = File.new(file_out_path, "w")
 file_out.write(test_header)
