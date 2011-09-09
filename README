@@ -1,0 +1,11 @@
+This is a library of Red/System functions collections. Two collections have been started:
+       
+        IO-Utils              - Basic input and output functions
+        UTF-8-Utils           - Functons for handling UTF-8 strings
+
+They are both at a very early stage of development.
+
+Supporting link libraries are written using the Free Pascal Compiler. Binary versions of link libraries 
+for Linux, OS X and Windows are provided.
+
+Scripts for compilation and testing are written in Ruby.
