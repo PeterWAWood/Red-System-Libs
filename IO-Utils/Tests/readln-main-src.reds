@@ -1,7 +1,7 @@
 Red/System [
   Purpose:    "Test harness for IOUtils/readln"
   Author:     "Peter W A Wood"
-  Version:    0.0.1
+  Version:    0.0.2
   Rights:     "Copyright © 2011 Peter W A Wood. All rights reserved."
   License:    "BSD-3"        
   See:        "(https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt)"
@@ -42,11 +42,13 @@ str: args/item
 ;; library call with 2 or 3 arguments
 args: args + 1
 either args/item = null [
-  PWAW-IO-Utils/readln [len str]  
+  PWAW-IO-readln len str  
 ][
+  PWAW-IO-readln len str                ;; Place holder
+                                        ;; NEEDS file open first!!!!
   ;; convert file handle
-  fh: str-to-int args/item
-  PWAW-IO-Utils/readln [len str fh] 
+  ;;fh: str-to-int args/item
+  ;;PWAW-IO-readln [len str fh] 
 ]
 
 print str

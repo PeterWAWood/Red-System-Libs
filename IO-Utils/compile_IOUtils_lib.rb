@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 =begin 
-  Purpose     Compiles IO_lib_test_main.reds
+  Purpose     Compiles IOUtils.pas
   Author      Peter W A Wood
   Version     0.0.2
   Rights      Copyright © 2011 Peter W A Wood. All rights reserved.

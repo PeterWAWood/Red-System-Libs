@@ -3,7 +3,7 @@
 =begin 
   Purpose     Tests for IOUtils/readlnstdin
   Author      Peter W A Wood
-  Version     0.0.1
+  Version     0.0.2
   Rights      Copyright © 2011 Peter W A Wood. All rights reserved.
   License     BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt
 =end
@@ -19,13 +19,12 @@ class TestLib < Test::Unit::TestCase
   @exec_path
 
   def setup 
-    @exec_path = 'arch -i386 ruby ' + @@auto_dir + '/IOUtils_main.rb readlnstdin'
+    @exec_path = @@auto_dir + '/readln-main'
   end
 
   def exec_func(len, str, input)
     actual = %x{echo #{input} | #{@exec_path} #{len} #{str}}
     assert_equal(0, $?.exitstatus)
-    puts actual
     actual
   end
   

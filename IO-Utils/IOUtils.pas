@@ -4,9 +4,9 @@
 //
 // Author:        Peter W A Wood
 //
-// Date:          4-Sep-2011
+// Date:          20-Sep-2011
 //
-// Version:       0.0.1
+// Version:       0.0.2
 //
 // Rights:        Copyright (C) 2011 Peter W A Wood.
 //                All rights reserved.
