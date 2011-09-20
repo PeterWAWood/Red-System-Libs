@@ -19,12 +19,13 @@ class TestLib < Test::Unit::TestCase
   @exec_path
 
   def setup 
-    @exec_path = @@auto_dir + '/readlnstdin_main'
+    @exec_path = 'arch -i386 ruby ' + @@auto_dir + '/IOUtils_main.rb readlnstdin'
   end
 
   def exec_func(len, str, input)
     actual = %x{echo #{input} | #{@exec_path} #{len} #{str}}
     assert_equal(0, $?.exitstatus)
+    puts actual
     actual
   end
   
@@ -54,12 +55,6 @@ class TestLib < Test::Unit::TestCase
     assert_equal('fghijklmno', result)
   end
   
-end
-
-class TestInc < TestLib
-  def setup 
-    @exec_path = @@auto_dir + '/readlnstdin-main'
-  end
 end
 
 

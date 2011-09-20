@@ -10,9 +10,7 @@
   Notes       Requires access to the file path-to-Red.txt.
 =end
 
-## constants
-LIBRARY = true
-INCLUDE = false
+
 
 ## source substitution definitiions
 @@lib_def = <<END_LIB_DEF
