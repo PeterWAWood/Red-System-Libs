@@ -4,9 +4,9 @@
 //
 // Author:        Peter W A Wood
 //
-// Date:          20-Sep-2011
+// Date:          22-Sep-2011
 //
-// Version:       0.0.2
+// Version:       0.0.3
 //
 // Rights:        Copyright (C) 2011 Peter W A Wood.
 //                All rights reserved.
@@ -23,13 +23,21 @@ library IOUtils;
 
 uses Strings;
 
-procedure readlnstdin(len: integer; str: pchar);cdecl;
+function readlnstdin(len: integer; str: pchar): integer;cdecl;
 var
   s:                    ANSIString;
 begin
   readln(s);
   s := copy(s, 1, len);
-  strpcopy(str, s);
+      strpcopy(str, s);
+  if eof then
+    begin
+      readlnstdin := 0;
+    end
+  else
+    begin
+      readlnstdin := 1;
+    end;      
 end;
 
 {$ifndef Darwin}

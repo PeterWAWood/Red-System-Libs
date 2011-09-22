@@ -3,7 +3,7 @@
 =begin 
   Purpose     Compiles IOUtils.pas
   Author      Peter W A Wood
-  Version     0.0.2
+  Version     0.0.3
   Rights      Copyright © 2011 Peter W A Wood. All rights reserved.
   License     BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt
 
@@ -12,6 +12,7 @@
 
 # get source directory
 lib_dir = File.expand_path(File.dirname(__FILE__))
+lib_path = File.join(lib_dir, 'IOUtils.pas')
 
 # use -k-no_order_limits on OS X until I move to XCode 4
 compile_command = case
@@ -20,4 +21,4 @@ compile_command = case
 end
 
 # compile, relocate executable and run
-system(compile_command + ' ' + lib_dir + '/IOUtils.pas') 
+system(compile_command + ' ' + lib_path) 

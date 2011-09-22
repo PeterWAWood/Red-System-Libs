@@ -1,7 +1,7 @@
 Red/System [
   Purpose:    "Test harness for IOUtils/readln"
   Author:     "Peter W A Wood"
-  Version:    0.0.2
+  Version:    0.0.3
   Rights:     "Copyright © 2011 Peter W A Wood. All rights reserved."
   License:    "BSD-3"        
   See:        "(https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt)"
@@ -30,25 +30,23 @@ str-to-int: func [
 ]
 
 args: system/args-list
-
-;; convert the requested length to an integer 
 args: args + 1
-len: str-to-int args/item
+len: 0
+str: ""
+result: 0
 
-;; get the target string
-args: args + 1
-str: args/item
+until [
+  ;; convert the requested length to an integer 
+  len: str-to-int args/item
 
-;; library call with 2 or 3 arguments
-args: args + 1
-either args/item = null [
-  PWAW-IO-readln len str  
-][
-  PWAW-IO-readln len str                ;; Place holder
-                                        ;; NEEDS file open first!!!!
-  ;; convert file handle
-  ;;fh: str-to-int args/item
-  ;;PWAW-IO-readln [len str fh] 
+  ;; get the target string
+  args: args + 1
+  str: args/item
+
+  result: PWAW-IO-readln len str  
+  
+  args: args + 1
+  args/item = null
 ]
 
-print str
+print [result "||" str]
