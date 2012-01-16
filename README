@@ -1,8 +1,9 @@
-This is a library of Red/System function collections. Two collections have been started:
+This is a library of Red/System function collections. Three collections have been started:
        
-        Date-Time             - Basic date and time functions
-        UTF-8                 - Functons for handling UTF-8 strings
+       Core                  - Basic functions to support other libs 
+       Date-Time             - Basic date and time functions
+       UTF-8                 - Functons for handling UTF-8 strings
 
-They are both at a very early stage of development.
+They are all at a very early stage of development.
 
 Scripts for compilation and testing are written in Ruby.
