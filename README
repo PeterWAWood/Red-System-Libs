@@ -2,7 +2,7 @@ This is a library of Red/System function collections. Three collections have bee
        
        Core                  - Basic functions to support other libs 
        Date-Time             - Basic date and time functions
-       UTF-8                 - Functons for handling UTF-8 strings
+       UTF-8                 - Functions for handling UTF-8 strings
 
 They are all at a very early stage of development.
 
