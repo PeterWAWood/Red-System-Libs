@@ -1,10 +1,10 @@
 Red/System [
-  Purpose     LibC module for date-time library
-  Author      Peter W A Wood
-  Version     0.0.1
-  Rights      Copyright © 2011 Peter W A Wood. All rights reserved.
-  License     BSD-3        
-              (https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt)
+  Purpose:     LibC module for date-time library
+  Author:      Peter W A Wood
+  Version:     0.0.1
+  Rights:      Copyright © 2011 Peter W A Wood. All rights reserved.
+  License:     "Distributed under the Boost Software License, Version 1.0."
+	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
 #define PWAW-DT-MICROSECONDS 1000000
@@ -132,8 +132,6 @@ PWAW-DT-now: func [
   result/microseconds:      localtime/microseconds
   result/tz-hours:          tz/mins / 60
   result/tz-minutes:        tz/mins % 60
-  result/day-of-week:       tm/wday + 1
-  result/day-of-year:       tm/yday + 1
   
   ;; successful return
   0

@@ -1,10 +1,11 @@
 Red/System [
-	Title:   "utf-8-utilities"
+	Title:   "utf-8"
 	Author:  "Peter W A Wood"
-	File: 	 %utf-8-utils.reds
+	File: 	 %utf-8.reds
 	Version: 0.0.1
 	Rights:  "Copyright (C) 2011 Peter W A Wood. All rights reserved."
-	License: "BSD-3 - https://github.com/dockimbel/Red/blob/master/BSD-3-License.txt"
+	License: "Distributed under the Boost Software License, Version 1.0."
+	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
 PWAW-UU-verify: func [

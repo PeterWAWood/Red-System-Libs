@@ -31,7 +31,7 @@ auto_tests = %w(
 # templates
 test_header_template = <<END_OF_TEMPLATE
 Red/System [
-	Title:   "utf-8-utils verify unit tests"
+	Title:   "utf-8 verify unit tests"
 	Author:  "Peter W A Wood"
 	File: 	 %verify-test.reds
 	Version: 0.0.1
@@ -65,7 +65,7 @@ auto_dir = tests_dir + '/Auto'
 reds_libs_dir = tests_dir.slice(/\S+\/Red-System-Libs/)
 qt_path = IO.read(reds_libs_dir + "/path-to-Red.txt").chomp + 
           'red-system/tests/quick-test/quick-test.reds'
-uu_path = tests_dir.sub(/\/[tT]ests\Z/, '') + '/utf-8-utils.reds'
+uu_path = tests_dir.sub(/\/[tT]ests\Z/, '') + '/utf-8.reds'
 test_header = test_header_template.sub(/###uu_path###/, uu_path).sub(/###qt_path###/, qt_path)
 test_footer = test_foooter_template
 file_out_path = auto_dir + '/verify-test.reds'

@@ -30,10 +30,6 @@ Red/System [
 	--assert n-now/tz-hours < 15
 	--assert n-now/tz-minutes >= 0
 	--assert n-now/tz-minutes < 60
-	--assert n-now/day-of-week > 0
-	--assert n-now/day-of-week < 8
-	--assert n-now/day-of-week > 0
-	--assert n-now/day-of-year < 366
 	
 ~~~end-file~~~
 
