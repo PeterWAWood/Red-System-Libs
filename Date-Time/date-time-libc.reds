@@ -6,8 +6,6 @@ Red/System [
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
-
-#define PWAW-DT-MICROSECONDS 1000000
  
 PWAW-DT-timeval!: alias struct! [
   seconds           [integer!]            
@@ -28,14 +26,8 @@ PWAW-DT-tm!: alias struct! [
   zone      [c-string!]
 ]
 
-#switch OS [
-	Syllable [#define LIBC-file	"libc.so.2"]
-	MacOSX	 [#define LIBC-file	"libc.dylib"]
-	#default [#define LIBC-file	"libc.so.6"]
-]
-
 #import [
-	LIBC-file cdecl [
+	LIBC-FILE cdecl [
 	  get-time-of-day: "gettimeofday" [
 	    time-of-day [PWAW-DT-timeval!]
 	    timezone    [struct! [
@@ -54,39 +46,13 @@ PWAW-DT-tm!: alias struct! [
 	]
 ]
 
-PWAW-DT-difference: func [
-  end-time          [PWAW-DT-timeval!]
-  start-time        [PWAW-DT-timeval!]
-  result            [PWAW-DT-timeval!]
-  return:           [integer!]
-  /local
-  errcode           [integer!]
-][  
-  
-  either end-time/microseconds < start-time/microseconds [
-    result/seconds: end-time/seconds - start-time/seconds - 1
-    result/microseconds: end-time/microseconds - 
-                         start-time/microseconds + 
-                         PWAW-DT-MICROSECONDS
-  ][
-    result/seconds: end-time/seconds - start-time/seconds
-    result/microseconds: end-time/microseconds - start-time/microseconds
-  ]
-  
-  either result/seconds < 0 [
-    errcode: 1
-  ][
-    errcode: 0
-  ]
-
-]
-
 PWAW-DT-now: func [
 ;; fills the result structure argument with details of the current date/time
 ;; returns:
 ;;        0 - successful
 ;;        1 - cannot retrieve time from os
 ;;        2 - cannot convert the machine time
+;;        3 - cannot retrieve time zone
 
   result      [PWAW-DT-date!]
   return:     [integer!]

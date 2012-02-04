@@ -22,6 +22,7 @@ PWAW-DT-date!: alias struct! [
 ]
 
 #switch OS [
+  Windows  [#include %date-time-win32.reds]
 	#default [#include %date-time-libc.reds]
 ]
 
