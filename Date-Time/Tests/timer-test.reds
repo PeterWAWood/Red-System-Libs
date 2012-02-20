@@ -21,7 +21,7 @@ Red/System [
 	--assert start/ticks > -1
 	
 	--test-- "timer-2"
-	   start/ticks: 0
+	  start/ticks: 0
 	  time/ticks: 0
 	  PWAW-DT-timer 1 start time
 	  save-time: start/ticks
@@ -30,12 +30,10 @@ Red/System [
 	    t2-i: t2-i - 1
 	    t2-i = 0
 	  ]
-	  start/ticks: 0
 	  time/ticks: 0
 	--assert 0 = PWAW-DT-timer 2 start time
 	--assert start/ticks = save-time
-	--assert start/ticks > -1
-	--assert time/ticks > start/ticks
+	--assert time/ticks > 0
 
 	--test-- "timer-3"
 	  start/ticks: 0
@@ -46,10 +44,9 @@ Red/System [
 	    t2-i: t2-i - 1
 	    t2-i = 0
 	  ]
-	  start/ticks: 0
 	  time/ticks: 0
 	--assert 0 = PWAW-DT-time-taken start time
-	--assert time/ticks > start/ticks
+	--assert time/ticks > 0
 	
 ~~~end-file~~~
 
