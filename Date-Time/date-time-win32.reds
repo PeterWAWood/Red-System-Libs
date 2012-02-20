@@ -89,6 +89,9 @@ PWAW-DT-time-zone!: alias struct! [
 
 #import [
 	"Kernel32.dll" stdcall [
+	  get-cpu-clicks: "GetTickCount" [
+	    return:     [integer!]
+	  ]
 	  get-local-time: "GetLocalTime" [
 	    date-time   [PWAW-DT-tm!]
 	  ]
@@ -155,5 +158,40 @@ PWAW-DT-now: func [
 
   ;; successful return
   0
+]
+
+PWAW-DT-timer: func [
+  action        [integer!]
+  start-tick    [PWAW-DT-cpu-ticks!]
+  ticks-taken   [PWAW-DT-cpu-ticks!]
+  return:       [integer!]
+;;  action = 1 (Start timer)
+;;    fills start-tick with the current cpu tick
+;;  action = 2 (Read timer)
+;;     calculates the time-taken from the supplied start-time
+;;  return values:
+;;        0 - successful
+;;        1 - cannot retrieve time from os
+;;        2 - no start tick supplied
+;;        3 - start tick lower than current tick
+  /local
+    current-tick  [integer!]
+][
+  
+  switch action [
+    1 [
+      start-tick/ticks: get-cpu-clicks
+      either start-tick/ticks < 0 [return 1] [return 0]
+    ]
+    
+    2 [
+      current-tick: get-cpu-clicks
+      if current-tick < 0 [return 1]
+      if start-tick/ticks < 0 [return 2]
+      if start-tick/ticks > current-tick [return 3]
+      ticks-taken/ticks: current-tick - start-tick/ticks
+      return 0
+    ] 
+  ]
 ]
  

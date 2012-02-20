@@ -9,6 +9,9 @@ Red/System [
 
 #include %../../Core/core.reds
 
+#define PWAW-DT-start-timer [PWAW-DT-timer 1]
+#define PWAW-DT-time-taken  [PWAW-DT-timer 2]
+
 PWAW-DT-date!: alias struct! [
   year              [integer!]
   month             [integer!]
@@ -19,6 +22,10 @@ PWAW-DT-date!: alias struct! [
   microseconds      [integer!]
   tz-hours          [integer!]
   tz-minutes        [integer!]
+]
+
+PWAW-DT-cpu-ticks!: alias struct! [
+  ticks             [integer!]
 ]
 
 #switch OS [
@@ -36,6 +43,22 @@ PWAW-DT-date!: alias struct! [
 ;;        0 - successful
 ;;        1 - cannot retrieve time from os
 ;;        2 - cannot convert the machine time
+;;
+;;  PWAW-DT-timer
+;;    action        integer!
+;;    start-tick    PWAW-DT-cpu-ticks!
+;;    ticks-taken   PWAW-DT-cpu-ticks!
+;;    return:       integer!
+;;  action = 1 (Start timer)
+;;    fills start-tick with the current cpu tick
+;;  action = 2 (Read timer)
+;;     calculates the ticks takensince the supplied start-tick
+;;  return values:
+;;        0 - successful
+;;        1 - cannot retrieve time from os
+;;        2 - no start tick supplied
+;;        3 - start tick lower than current tick
+;;
 
 PWAW-DT-load-date: func [
   ; Loads the supplied date structure from a string 

@@ -6,7 +6,7 @@ Red/System [
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
- 
+
 PWAW-DT-timeval!: alias struct! [
   seconds           [integer!]            
   microseconds      [integer!]
@@ -28,6 +28,16 @@ PWAW-DT-tm!: alias struct! [
 
 #import [
 	LIBC-FILE cdecl [
+	  as-localtime: "localtime_r" [
+	    time        [struct! [
+	      secs [integer!]
+	    ]]
+	    result      [PWAW-DT-tm!]
+	    return:     [PWAW-DT-tm!]
+	  ]
+	  get-cpu-clicks: "clock" [
+	    return:     [integer!]
+	  ]
 	  get-time-of-day: "gettimeofday" [
 	    time-of-day [PWAW-DT-timeval!]
 	    timezone    [struct! [
@@ -35,13 +45,6 @@ PWAW-DT-tm!: alias struct! [
 	        dst     [integer!]
 	    ]]
 	    return:     [integer!]
-	  ]
-	  as-localtime: "localtime_r" [
-	    time        [struct! [
-	      secs [integer!]
-	    ]]
-	    result      [PWAW-DT-tm!]
-	    return:     [PWAW-DT-tm!]
 	  ]
 	]
 ]
@@ -103,3 +106,37 @@ PWAW-DT-now: func [
   0
 ]
  
+PWAW-DT-timer: func [
+  action        [integer!]
+  start-tick    [PWAW-DT-cpu-ticks!]
+  ticks-taken   [PWAW-DT-cpu-ticks!]
+  return:       [integer!]
+;;  action = 1 (Start timer)
+;;    fills start-tick with the current cpu tick
+;;  action = 2 (Read timer)
+;;     calculates the time-taken from the supplied start-time
+;;  return values:
+;;        0 - successful
+;;        1 - cannot retrieve time from os
+;;        2 - no start tick supplied
+;;        3 - start tick lower than current tick
+  /local
+    current-tick  [integer!]
+][
+  
+  switch action [
+    1 [
+      start-tick/ticks: get-cpu-clicks
+      either start-tick/ticks < 0 [return 1] [return 0]
+    ]
+    
+    2 [
+      current-tick: get-cpu-clicks
+      if current-tick < 0 [return 1]
+      if start-tick/ticks < 0 [return 2]
+      if start-tick/ticks > current-tick [return 3]
+      ticks-taken/ticks: current-tick - start-tick/ticks
+      return 0
+    ] 
+  ]
+]
