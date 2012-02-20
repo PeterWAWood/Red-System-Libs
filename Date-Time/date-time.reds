@@ -1,7 +1,7 @@
 Red/System [
   Purpose:     "A basic date-time library"
   Author:      "Peter W A Wood"
-  Version:     0.0.1
+  Version:     0.1.0
   Rights:      "Copyright © 2011 Peter W A Wood. All rights reserved."
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
