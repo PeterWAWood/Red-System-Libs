@@ -9,6 +9,11 @@ Red/System [
 
 #define PWAW-DT-MICROSECONDS 1000000
 #define PWAW-DT-MILLISECONDS 1000
+
+PWAW-DT-cpu-ticks!: alias struct! [
+  ticks             [integer!]
+  ticks-high        [integer!]
+]
  
 PWAW-DT-tm!: alias struct! [
   year-high         [byte!]
@@ -89,7 +94,8 @@ PWAW-DT-time-zone!: alias struct! [
 
 #import [
 	"Kernel32.dll" stdcall [
-	  get-cpu-clicks: "GetTickCount" [
+	  get-cpu-ticks: "QueryPerformanceCounter" [
+	    ticks       [PWAW-DT-cpu-ticks!]
 	    return:     [integer!]
 	  ]
 	  get-local-time: "GetLocalTime" [
@@ -174,22 +180,32 @@ PWAW-DT-timer: func [
 ;;        1 - cannot retrieve time from os
 ;;        2 - no start tick supplied
 ;;        3 - start tick lower than current tick
+;;        4 - difference to large for int 32
   /local
-    current-tick  [integer!]
+    current-tick  [PWAW-DT-cpu-ticks!]
 ][
+  current-tick: declare PWAW-DT-cpu-ticks!
   
   switch action [
     1 [
-      start-tick/ticks: get-cpu-clicks
-      either start-tick/ticks < 0 [return 1] [return 0]
+      either 0 = get-cpu-ticks start-tick [return 1] [return 0]
     ]
     
     2 [
-      current-tick: get-cpu-clicks
-      if current-tick < 0 [return 1]
-      if start-tick/ticks < 0 [return 2]
-      if start-tick/ticks > current-tick [return 3]
-      ticks-taken/ticks: current-tick - start-tick/ticks
+      if 0 = get-cpu-ticks current-tick [return 1]
+      if start-tick/ticks-high < 0 [return 2]
+      if 0 <> PWAW-C-diff64 (as PWAW-C-int64! current-tick)
+                            (as PWAW-C-int64! start-tick)
+                            (as PWAW-C-int64! ticks-taken) [
+        return 3
+      ]
+      if any [                      ;; too big for integer! ?
+        ticks-taken/ticks-high > 0
+        ticks-taken/ticks < 0
+      ][
+        return 4                    ;; but still provide the actual difference
+      ]
+      
       return 0
     ] 
   ]

@@ -7,6 +7,11 @@ Red/System [
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
+PWAW-C-int64!: alias struct! [
+  low             [integer!]
+  high            [integer!]
+]
+
 PWAW-C-compare-strings: func [
   ;; compares two strings byte by byte
   ;; returns logic! :
@@ -30,6 +35,87 @@ PWAW-C-compare-strings: func [
     s1/i = null-byte    
   ]
   true
+]
+
+PWAW-C-diff64: func [
+  ;; This function is based on code kindly supplied by copyright Nenad Rakocevic
+  ;; copyright 2012 Nenad Rakocevic & Peter W A Wood
+  ;; calculates the difference between 2 positive 64-bit little endian integers
+  ;; the first must be larger than the second
+  ;; the difference is returned via the third argument
+  ;; returns integer!:
+  ;;    0 - success
+  ;;    1 - one of the arguments is negative
+  ;;    2 - the second argument is bigger than the first
+	a                 [PWAW-C-int64!] 
+	b                 [PWAW-C-int64!]
+	diff              [PWAW-C-int64!]
+	return:           [integer!]
+	/local  
+	    offset        [integer!]
+	    a-neg?        [logic!]
+	    b-neg?        [logic!]
+][
+  a-neg?: false
+  b-neg?: false
+  
+  ;; reject neagative numbers
+	if any [
+	  a/high < 0
+	  b/high < 0
+	][
+	  return 1
+	]
+	
+	;; check a is greater or equal to b
+	if a/low < 0 [
+	  a-neg?: true
+	  a/low: a/low xor 80000000h
+	]
+	
+	if b/low < 0 [
+	  b-neg?: true
+	  b/low: b/low xor 80000000h
+	]
+	  
+	if any [
+	  b/high > a/high
+	  all [
+	    b/high = a/high
+	    any [
+	      all [
+	        b-neg?
+	        not a-neg?
+	      ]
+	      all [
+	        b-neg?
+	        a-neg?
+	        b/low > a/low
+	      ]
+	      all [
+	        not a-neg?
+	        not b-neg?
+	        b/low > a/low
+	      ]
+	    ]
+	  ]
+	][
+	  return 2
+	]
+	
+	;; calculate the difference  
+	diff/high: a/high - b/high
+	diff/low: a/low - b/low
+	offset: diff/low
+	if negative? offset [offset: negate offset]
+	if a/low < offset [diff/high: diff/high - 1]
+	if all [
+	  a-neg?
+	  (not b-neg?)
+	][
+	  diff/low: diff/low or 80000000h
+	]
+	0
 ]
 
 PWAW-C-load-int: func [
@@ -328,3 +414,5 @@ PWAW-C-str-int?: func [
   ]
   true
 ]
+
+

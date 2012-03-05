@@ -24,41 +24,10 @@ PWAW-DT-date!: alias struct! [
   tz-minutes        [integer!]
 ]
 
-PWAW-DT-cpu-ticks!: alias struct! [
-  ticks             [integer!]
-]
-
 #switch OS [
   Windows  [#include %date-time-win32.reds]
 	#default [#include %date-time-libc.reds]
 ]
-
-;; These functions are defined in the date-time os modules:
-;;
-;;  PWAW-DT-now
-;;    result        PWAW-DT-date!
-;;    return:       integer!
-;;  fills the result structure argument with details of the current date/time
-;;  returns:
-;;        0 - successful
-;;        1 - cannot retrieve time from os
-;;        2 - cannot convert the machine time
-;;
-;;  PWAW-DT-timer
-;;    action        integer!
-;;    start-tick    PWAW-DT-cpu-ticks!
-;;    ticks-taken   PWAW-DT-cpu-ticks!
-;;    return:       integer!
-;;  action = 1 (Start timer)
-;;    fills start-tick with the current cpu tick
-;;  action = 2 (Read timer)
-;;     calculates the ticks takensince the supplied start-tick
-;;  return values:
-;;        0 - successful
-;;        1 - cannot retrieve time from os
-;;        2 - no start tick supplied
-;;        3 - start tick lower than current tick
-;;
 
 PWAW-DT-load-date: func [
   ; Loads the supplied date structure from a string 

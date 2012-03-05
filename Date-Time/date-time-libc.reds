@@ -7,6 +7,10 @@ Red/System [
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
+PWAW-DT-cpu-ticks!: alias struct! [
+  ticks             [integer!]
+]
+
 PWAW-DT-timeval!: alias struct! [
   seconds           [integer!]            
   microseconds      [integer!]
@@ -120,6 +124,7 @@ PWAW-DT-timer: func [
 ;;        1 - cannot retrieve time from os
 ;;        2 - no start tick supplied
 ;;        3 - start tick lower than current tick
+;;        4 - difference to large for int 32
   /local
     current-tick  [integer!]
 ][

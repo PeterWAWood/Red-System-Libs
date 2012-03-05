@@ -18,14 +18,13 @@ Red/System [
 	  start/ticks: 0
 	  time/ticks: 0
 	--assert 0 = PWAW-DT-timer 1 start time
-	--assert start/ticks > -1
 	
 	--test-- "timer-2"
 	  start/ticks: 0
 	  time/ticks: 0
 	  PWAW-DT-timer 1 start time
 	  save-time: start/ticks
-	  t2-i: 10000000
+	  t2-i: 100000000
 	  until [
 	    t2-i: t2-i - 1
 	    t2-i = 0
@@ -34,12 +33,12 @@ Red/System [
 	--assert 0 = PWAW-DT-timer 2 start time
 	--assert start/ticks = save-time
 	--assert time/ticks > 0
-
+	
 	--test-- "timer-3"
 	  start/ticks: 0
 	  time/ticks: 0
 	  PWAW-DT-start-timer start time
-	  t2-i: 10000000
+	  t2-i: 100000000
 	  until [
 	    t2-i: t2-i - 1
 	    t2-i = 0
