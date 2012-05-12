@@ -7,6 +7,7 @@ Red/System [
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
+#include %../Int64/int64.reds
 #define PWAW-DT-MICROSECONDS 1000000
 #define PWAW-DT-MILLISECONDS 1000
 
@@ -16,24 +17,24 @@ PWAW-DT-cpu-ticks!: alias struct! [
 ]
  
 PWAW-DT-tm!: alias struct! [
-  year-high         [byte!]
-  year-low          [byte!]
-  month-high        [byte!]
-  month-low         [byte!] 
-  day-of-week-high  [byte!]
-  day-of-week-low   [byte!]
-  day-high          [byte!]
-  day-low           [byte!]
-  hour-high         [byte!]
-  hour-low          [byte!]
-  minute-high       [byte!]
-  minute-low        [byte!]
-  seconds-high      [byte!]
-  seconds-low       [byte!]
-  milliseconds-high [byte!]
-  milliseconds-low  [byte!]
+  year-low         [byte!]
+  year-high          [byte!]
+  month-low        [byte!]
+  month-high         [byte!] 
+  day-of-week-low  [byte!]
+  day-of-week-high   [byte!]
+  day-low          [byte!]
+  day-high           [byte!]
+  hour-low         [byte!]
+  hour-high          [byte!]
+  minute-low       [byte!]
+  minute-high        [byte!]
+  seconds-low      [byte!]
+  seconds-high       [byte!]
+  milliseconds-low [byte!]
+  milliseconds-high  [byte!]
 ]
-
+  
 PWAW-DT-time-zone!: alias struct! [
   bias            [integer!]
   f1              [integer!]          ;;  Standard Name 32 x wchar
@@ -94,18 +95,102 @@ PWAW-DT-time-zone!: alias struct! [
 
 #import [
 	"Kernel32.dll" stdcall [
-	  get-cpu-ticks: "QueryPerformanceCounter" [
+	  PWAW-DT-get-cpu-ticks: "QueryPerformanceCounter" [
 	    ticks       [PWAW-DT-cpu-ticks!]
 	    return:     [integer!]
 	  ]
-	  get-local-time: "GetLocalTime" [
+	  PWAW-DT-get-local-time: "GetLocalTime" [
 	    date-time   [PWAW-DT-tm!]
 	  ]
-	  get-time-zone: "GetTimeZoneInformation" [
+	  PWAW-DT-get-time-zone: "GetTimeZoneInformation" [
 	    time-zone   [PWAW-DT-time-zone!]
 	    return:     [integer!]
 	  ]
+	  PWAW-DT-tm-to-filetime: "SystemTimeToFileTime" [
+	    tm          [PWAW-DT-tm!]
+	    ft          [PWAW-C-int64!]
+	    return:     [integer!]
+	  ]
+	  get-last-error: "GetLastError" [
+	    return:     [integer!]
+	  ]
 	]
+]
+
+PWAW-DT-date-difference: func [
+;; returns the difference between two dates in seconds
+  date1           [PWAW-DT-date!]
+  date2           [PWAW-DT-date!]
+  return:         [integer!]
+  /local
+  tm              [PWAW-DT-tm!]
+  time1           [integer!]
+  tz1             [integer!]
+  time2           [integer!]
+  tz2             [integer!]
+  ft              [PWAW-C-int64!]
+  time            [PWAW-C-int64!]
+  ten-million [PWAW-C-int64!]
+][
+  ft: declare PWAW-C-int64!
+  tm: declare PWAW-DT-tm!
+  time: declare PWAW-C-int64!
+  ten-million: declare PWAW-C-int64!
+  ten-million/low: 10000000
+  PWAW-DT-date-to-tm date1 tm
+  PWAW-DT-tm-to-filetime tm ft lf
+  PWAW-I64-div ft ten-million time
+  time1: time/low
+  tz1: (date1/tz-hours * 3600)
+  either tz1 < 0 [
+    tz1: tz1 - (date1/tz-minutes * 60)
+  ][
+    tz1: tz1 + (date1/tz-minutes * 60)    
+  ]
+  time1: time1 + tz1 
+  PWAW-DT-date-to-tm date2 tm
+  PWAW-DT-tm-to-filetime tm ft
+  PWAW-I64-div ft ten-million time
+  time2: time/low
+  tz2: (date2/tz-hours * 3600)
+  either tz2 < 0 [
+    tz2: tz2 - (date2/tz-minutes * 60)
+  ][
+    tz2: tz2 + (date2/tz-minutes * 60)    
+  ]
+  time2: time2 + tz2
+  time1 - time2
+]
+
+PWAW-DT-date-to-tm: func [
+  date             [PWAW-DT-date!]
+  tm               [PWAW-DT-tm!]
+  /local
+  microseconds     [integer!]  
+][
+  tm/year-high: as byte! (date/year / 256)
+  tm/year-low: as byte! (date/year % 256)
+  tm/month-high: as byte! (date/month / 256)
+  tm/month-low: as byte! (date/month % 256)
+  tm/day-high: as byte! (date/day / 256)         
+  tm/day-low: as byte! (date/day % 256)
+  tm/hour-high: as byte! (date/hour / 256)
+  tm/hour-low: as byte! (date/hour % 256)
+  tm/minute-high: as byte! (date/minutes / 256)
+  tm/minute-low: as byte! (date/minutes % 256)
+  tm/seconds-high: as byte! (date/seconds / 256)
+  tm/seconds-low: as byte! (date/seconds % 256)
+  microseconds: date/microseconds / 1000
+  tm/milliseconds-high: as byte! (microseconds / 256)
+  tm/milliseconds-low: as byte! (microseconds % 256)
+]
+
+PWAW-DT-ms-word-to-int: func [
+  high      [byte!]
+  low       [byte!]
+  return:   [integer!]
+][
+  (as integer! high) * 256 + (as integer! low)
 ]
 
 PWAW-DT-now: func [
@@ -124,14 +209,6 @@ PWAW-DT-now: func [
   tz          [PWAW-DT-time-zone!]
   tz-return   [integer!]
 ][
-  ;; local functions
-  ms-word-to-int: func[
-    high    [byte!]
-    low     [byte!]
-    return: [integer!]
-  ][
-    (as integer! low) * 256 + (as integer! high)
-  ]
   
   ;; local variables
   localtime: declare PWAW-DT-tm!
@@ -139,10 +216,10 @@ PWAW-DT-now: func [
   tm: declare PWAW-DT-tm!
   
   ;; get the machine time
-  get-local-time tm
+  PWAW-DT-get-local-time tm
   
   ;; get time zone info
-  tz-return: get-time-zone tz
+  tz-return: PWAW-DT-get-time-zone tz
   if any [
     tz-return < 0
     tz-return > 2
@@ -151,13 +228,13 @@ PWAW-DT-now: func [
   ]
  
   ;; fill the date structure
-  result/year:              ms-word-to-int tm/year-high tm/year-low
-  result/month:             ms-word-to-int tm/month-high tm/month-low
-  result/day:               ms-word-to-int tm/day-high tm/day-low
-  result/hour:              ms-word-to-int tm/hour-high tm/hour-low
-  result/minutes:           ms-word-to-int tm/minute-high tm/minute-low
-  result/seconds:           ms-word-to-int tm/seconds-high tm/seconds-low
-  result/microseconds:      (ms-word-to-int tm/milliseconds-high tm/milliseconds-low) 
+  result/year:              PWAW-DT-ms-word-to-int tm/year-high tm/year-low
+  result/month:             PWAW-DT-ms-word-to-int tm/month-high tm/month-low
+  result/day:               PWAW-DT-ms-word-to-int tm/day-high tm/day-low
+  result/hour:              PWAW-DT-ms-word-to-int tm/hour-high tm/hour-low
+  result/minutes:           PWAW-DT-ms-word-to-int tm/minute-high tm/minute-low
+  result/seconds:           PWAW-DT-ms-word-to-int tm/seconds-high tm/seconds-low
+  result/microseconds:      (PWAW-DT-ms-word-to-int tm/milliseconds-high tm/milliseconds-low) 
                             * 1000
   result/tz-hours:          -1 * (tz/bias / 60)
   result/tz-minutes:        -1 * (tz/bias % 60)
@@ -188,13 +265,13 @@ PWAW-DT-timer: func [
   
   switch action [
     1 [
-      either 0 = get-cpu-ticks start-tick [return 1] [return 0]
+      either 0 = PWAW-DT-get-cpu-ticks start-tick [return 1] [return 0]
     ]
     
     2 [
-      if 0 = get-cpu-ticks current-tick [return 1]
+      if 0 = PWAW-DT-get-cpu-ticks current-tick [return 1]
       if start-tick/ticks-high < 0 [return 2]
-      if 0 <> PWAW-C-diff64 (as PWAW-C-int64! current-tick)
+      if 0 <> PWAW-I64-sub  (as PWAW-C-int64! current-tick)
                             (as PWAW-C-int64! start-tick)
                             (as PWAW-C-int64! ticks-taken) [
         return 3
@@ -209,5 +286,18 @@ PWAW-DT-timer: func [
       return 0
     ] 
   ]
+]
+
+print-tm: func [
+  tm    [PWAW-DT-tm!]
+][
+  print ["year " ((as integer! tm/year-high) * 256 + (as integer! tm/year-low)) lf]
+  print ["month " ((as integer! tm/month-high) * 256 + (as integer! tm/month-low)) lf]
+  print ["day-of-week " ((as integer! tm/day-of-week-high) * 256  + (as integer! tm/day-of-week-low)) lf]
+  print ["day " ((as integer! tm/day-high) * 256  + (as integer! tm/day-low)) lf]
+  print ["hour" ((as integer! tm/hour-high) * 256  + (as integer! tm/hour-low)) lf]
+  print ["minute" ((as integer! tm/minute-high) * 256  + (as integer! tm/minute-low)) lf]
+  print ["seconds" ((as integer! tm/seconds-high) * 256  + (as integer! tm/seconds-low)) lf] 
+  print ["milliseconds " ((as integer! tm/milliseconds-high) * 256  + (as integer! tm/milliseconds-low)) lf]
 ]
  

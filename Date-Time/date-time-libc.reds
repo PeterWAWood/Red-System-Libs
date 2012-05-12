@@ -32,17 +32,17 @@ PWAW-DT-tm!: alias struct! [
 
 #import [
 	LIBC-FILE cdecl [
-	  as-localtime: "localtime_r" [
+	  PWAW-DT-as-localtime: "localtime_r" [
 	    time        [struct! [
 	      secs [integer!]
 	    ]]
 	    result      [PWAW-DT-tm!]
 	    return:     [PWAW-DT-tm!]
 	  ]
-	  get-cpu-clicks: "clock" [
+	  PWAW-DT-get-cpu-clicks: "clock" [
 	    return:     [integer!]
 	  ]
-	  get-time-of-day: "gettimeofday" [
+	  PWAW-DT-get-time-of-day: "gettimeofday" [
 	    time-of-day [PWAW-DT-timeval!]
 	    timezone    [struct! [
 	        mins    [integer!]
@@ -50,7 +50,58 @@ PWAW-DT-tm!: alias struct! [
 	    ]]
 	    return:     [integer!]
 	  ]
+	  PWAW-DT-make-gnu-time:  "mktime" [
+	    tm          [PWAW-DT-tm!]
+	    return:     [integer!]
+	  ]
 	]
+]
+
+PWAW-DT-date-difference: func [
+;; returns the difference between two dates in seconds
+  date1           [PWAW-DT-date!]
+  date2           [PWAW-DT-date!]
+  return:         [integer!]
+  /local
+  tm              [PWAW-DT-tm!]
+  time1           [integer!]
+  time2           [integer!]
+  tz              [integer!]
+][
+  tm: declare PWAW-DT-tm!
+  tm/zone: "                    "
+  tz: date1/tz-hours * 60
+  either tz < 0 [
+    tz: tz - date1/tz-minutes
+  ][
+    tz: tz + date1/tz-minutes
+  ]
+  tz: tz * 60
+  tm/sec: date1/seconds
+  tm/min: date1/minutes 
+  tm/hour: date1/hour 
+  tm/mday: date1/day 
+  tm/mon:  date1/month - 1 
+  tm/year: date1/year - 1900 
+  tm/gmtoff: tz
+  time1: PWAW-DT-make-gnu-time tm
+  tm/zone: "                    "
+  tz: date2/tz-hours * 60
+  either tz < 0 [
+    tz: tz - date2/tz-minutes
+  ][
+    tz: tz + date2/tz-minutes
+  ]
+  tz: tz * 60
+  tm/sec: date2/seconds
+  tm/min: date2/minutes 
+  tm/hour: date2/hour 
+  tm/mday: date2/day 
+  tm/mon:  date2/month - 1 
+  tm/year: date2/year - 1900 
+  tm/gmtoff: tz
+  time2: PWAW-DT-make-gnu-time tm
+  time1 - time2  
 ]
 
 PWAW-DT-now: func [
@@ -87,13 +138,13 @@ PWAW-DT-now: func [
   tm: declare PWAW-DT-tm!
   
   ;; get the machine time
-  if 0 <> get-time-of-day localtime tz [
+  if 0 <> PWAW-DT-get-time-of-day localtime tz [
     return 1
   ]
   time/secs: localtime/seconds
   
   ;; expand the time into date & time info
-  if null = as-localtime time tm [return 2]
+  if null = PWAW-DT-as-localtime time tm [return 2]
   
   ;; fill the date structure
   result/year:              tm/year + 1900
@@ -131,12 +182,12 @@ PWAW-DT-timer: func [
   
   switch action [
     1 [
-      start-tick/ticks: get-cpu-clicks
+      start-tick/ticks: PWAW-DT-get-cpu-clicks
       either start-tick/ticks < 0 [return 1] [return 0]
     ]
     
     2 [
-      current-tick: get-cpu-clicks
+      current-tick: PWAW-DT-get-cpu-clicks
       if current-tick < 0 [return 1]
       if start-tick/ticks < 0 [return 2]
       if start-tick/ticks > current-tick [return 3]

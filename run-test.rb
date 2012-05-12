@@ -31,11 +31,7 @@ end
 Dir.chdir(compiler_dir)
 
 # compile, relocate executable and run
-if system('rebol rsc.r %' + pgm_path) then
+if system('rebol -qs rsc.r %' + pgm_path) then
   File.rename(File.join(compiler_dir, 'builds', pgm_name), pgm)
   system(pgm)
 end
-
-
-
-
