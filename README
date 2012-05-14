@@ -2,8 +2,8 @@ This is a library of Red/System function collections. Three collections have bee
        
        Core                  - Basic functions to support other libs 
        Date-Time             - Basic date and time functions
-       Int64                 - Functions for 64-bit integer subtraction and division using external libraries
-                                   pre-compiled libraries are provided for Windows 32, Libc 32 and OS X
+       Int64                 - Functions for 64-bit integer subtraction and division 
+                                   uses external pre-compiled libraries
                                    needed by date-difference function under Windows
        UTF-8                 - Functions for handling UTF-8 strings
 
