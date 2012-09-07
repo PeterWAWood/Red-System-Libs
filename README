@@ -9,4 +9,4 @@ This is a library of Red/System function collections. Three collections have bee
 
 They are all at a very early stage of development.
 
-Scripts for compilation and testing are written in Rebol.
+Scripts for compilation and testing are written in Rebol and Ruby.
