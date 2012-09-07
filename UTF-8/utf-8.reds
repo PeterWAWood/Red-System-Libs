@@ -8,7 +8,7 @@ Red/System [
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
-PWAW-UU-verify: func [
+PWAW-U-verify: func [
   str [c-string!]
   return: [integer!]
   /local

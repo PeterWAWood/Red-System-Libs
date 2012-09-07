@@ -288,7 +288,8 @@ PWAW-DT-timer: func [
   ]
 ]
 
-print-tm: func [
+// debugging function
+PWAW-DT-print-tm: func [
   tm    [PWAW-DT-tm!]
 ][
   print ["year " ((as integer! tm/year-high) * 256 + (as integer! tm/year-low)) lf]

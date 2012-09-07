@@ -33,9 +33,7 @@ PWAW-DT-tm!: alias struct! [
 #import [
 	LIBC-FILE cdecl [
 	  PWAW-DT-as-localtime: "localtime_r" [
-	    time        [struct! [
-	      secs [integer!]
-	    ]]
+	    time        [pointer! [integer!]]
 	    result      [PWAW-DT-tm!]
 	    return:     [PWAW-DT-tm!]
 	  ]
@@ -120,9 +118,7 @@ PWAW-DT-now: func [
     mins        [integer!] 
     dst         [integer!]
   ]]
-  time        [struct! [
-    secs        [integer!]
-  ]]
+  time        [integer!]
   tm          [PWAW-DT-tm!]
 ][
   
@@ -132,19 +128,16 @@ PWAW-DT-now: func [
     mins      [integer!]
     dst       [integer!]
   ]
-  time: declare struct! [
-    secs [integer!]
-  ]
   tm: declare PWAW-DT-tm!
   
   ;; get the machine time
   if 0 <> PWAW-DT-get-time-of-day localtime tz [
     return 1
   ]
-  time/secs: localtime/seconds
+  time: localtime/seconds
   
   ;; expand the time into date & time info
-  if null = PWAW-DT-as-localtime time tm [return 2]
+  if null = PWAW-DT-as-localtime :time tm [return 2]
   
   ;; fill the date structure
   result/year:              tm/year + 1900
@@ -163,8 +156,8 @@ PWAW-DT-now: func [
  
 PWAW-DT-timer: func [
   action        [integer!]
-  start-tick    [PWAW-DT-cpu-ticks!]
-  ticks-taken   [PWAW-DT-cpu-ticks!]
+  start-tick    [pointer! [integer!]]
+  ticks-taken   [pointer! [integer!]]
   return:       [integer!]
 ;;  action = 1 (Start timer)
 ;;    fills start-tick with the current cpu tick
@@ -182,16 +175,16 @@ PWAW-DT-timer: func [
   
   switch action [
     1 [
-      start-tick/ticks: PWAW-DT-get-cpu-clicks
-      either start-tick/ticks < 0 [return 1] [return 0]
+      start-tick/value: PWAW-DT-get-cpu-clicks
+      either start-tick/value < 0 [return 1] [return 0]
     ]
     
     2 [
       current-tick: PWAW-DT-get-cpu-clicks
       if current-tick < 0 [return 1]
-      if start-tick/ticks < 0 [return 2]
-      if start-tick/ticks > current-tick [return 3]
-      ticks-taken/ticks: current-tick - start-tick/ticks
+      if start-tick/value < 0 [return 2]
+      if start-tick/value > current-tick [return 3]
+      ticks-taken/value: current-tick - start-tick/value
       return 0
     ] 
   ]

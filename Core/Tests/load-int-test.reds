@@ -11,68 +11,66 @@ Red/System [
 
 ~~~start-file~~~ "load-int"
     
-    si: declare struct! [
-	    li  [integer!]
-	  ]
+    li: 0
 
 	--test-- "li-1"
-	  si/li: 0
-	--assert 0 = PWAW-C-load-int ["1" as pointer! [integer!] si]
-	--assert 1 = si/li
+	  li: 0
+	--assert 0 = PWAW-C-load-int ["1" :li]
+	--assert 1 = li
 	
 	--test-- "li-2"
-	  si/li: 999
-	--assert 0 = PWAW-C-load-int ["0" as pointer! [integer!] si]
-	--assert 0 = si/li
+	  li: 999
+	--assert 0 = PWAW-C-load-int ["0" :li]
+	--assert 0 = li
 	
 	--test-- "li-3"
-	  si/li: 0 
-	--assert 0 = PWAW-C-load-int ["-1" as pointer! [integer!] si]
-	--assert -1 = si/li
+	  li: 0 
+	--assert 0 = PWAW-C-load-int ["-1" :li]
+	--assert -1 = li
 	
 	--test-- "li-4"
-	  si/li: 0 
-	--assert 0 = PWAW-C-load-int ["2147483647" as pointer! [integer!] si]
-	--assert 2147483647 = si/li
+	  li: 0 
+	--assert 0 = PWAW-C-load-int ["2147483647" :li]
+	--assert 2147483647 = li
 	
 	--test-- "li-5"
-	  si/li: 0 
-	--assert 0 = PWAW-C-load-int ["-2147483648" as pointer! [integer!] si]
-	--assert -2147483648 = si/li   
+	  li: 0 
+	--assert 0 = PWAW-C-load-int ["-2147483648" :li]
+	--assert -2147483648 = li   
 	
 	--test-- "li-6"                      ;; to document what happens
-	  si/li: 0 
-	--assert 0 = PWAW-C-load-int ["2147483648" as pointer! [integer!] si]
-	--assert -2147483648 = si/li
+	  li: 0 
+	--assert 0 = PWAW-C-load-int ["2147483648" :li]
+	--assert -2147483648 = li
 	
 	--test-- "li-7"                      ;; to document what happens
-	  si/li: 0 
-	--assert 0 = PWAW-C-load-int ["-2147483649" as pointer! [integer!] si]
-	--assert 2147483647 = si/li
+	  li: 0 
+	--assert 0 = PWAW-C-load-int ["-2147483649" :li]
+	--assert 2147483647 = li
 	
 	--test-- "li-8"
-	  si/li: 0
-	--assert 0 = PWAW-C-load-int ["a1c" as pointer! [integer!] si 2 2]
-	--assert 1 = si/li
+	  li: 0
+	--assert 0 = PWAW-C-load-int ["a1c" :li 2 2]
+	--assert 1 = li
 	
 	--test-- "li-9"
-	  si/li: 999
-	--assert 0 = PWAW-C-load-int ["abcde0fg" as pointer! [integer!] si 6 6]
-	--assert 0 = si/li
+	  li: 999
+	--assert 0 = PWAW-C-load-int ["abcde0fg" :li 6 6]
+	--assert 0 = li
 
 	--test-- "li-10"
-	  si/li: 0 
-	--assert 0 = PWAW-C-load-int ["abcde-10" as pointer! [integer!] si 6 8]
-	--assert -10 = si/li
+	  li: 0 
+	--assert 0 = PWAW-C-load-int ["abcde-10" :li 6 8]
+	--assert -10 = li
 	
 	--test-- "li-11"
-	  si/li: 999
-	--assert 8 = PWAW-C-load-int ["-" as pointer! [integer!] si]
+	  li: 999
+	--assert 8 = PWAW-C-load-int ["-" :li]
 	
 	--test-- "li-12"
-	  si/li: 0 
-	--assert 0 = PWAW-C-load-int ["+1" as pointer! [integer!] si]
-	--assert 1 = si/li
+	  li: 0 
+	--assert 0 = PWAW-C-load-int ["+1" :li]
+	--assert 1 = li
 	
 ~~~end-file~~~
 

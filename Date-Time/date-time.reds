@@ -47,41 +47,20 @@ PWAW-DT-load-date: func [
    
   /local
     mth         [c-string!]
-    st          [struct! [
-      i         [integer!]
-    ]]
-][
-  store-int: func [
-    s           [c-string!]
-    start       [integer!]
-    end         [integer!]
-    st          [struct! [
-      i         [integer!]
-    ]]      
-    return:     [integer!]     
-  ][
-    if any [
-      not PWAW-C-str-int? [s start end] 
-      0 <> PWAW-C-load-int [s as pointer! [integer!] st start end]
-    ][
-      return 1
-    ]
-    0
-  ]    
-     
-  mth: "   "
-  st: declare struct! [
     i           [integer!]
-  ]
+][
+    
+  mth: "   "
+  i: 0
     
   if any [
-    0 <> store-int s 1 2 st 
-    st/i < 1                          
-    st/i > 31
+    0 <> PWAW-DT-store-int s 1 2 :i
+    i < 1                          
+    i > 31
   ][
     return 1
   ]
-  d/day: st/i
+  d/day: i
   
   mth/1: s/4
   mth/2: s/5
@@ -176,12 +155,12 @@ PWAW-DT-load-date: func [
   ]
     
   if any [
-    0 <> store-int s 8 11 st
-    st/i < 0
+    0 <> PWAW-DT-store-int s 8 11 :i
+    i < 0
   ][
     return 3
   ]
-  d/year: st/i
+  d/year: i
   
   ;; leap year checking
   if d/month = 2 [
@@ -197,53 +176,53 @@ PWAW-DT-load-date: func [
   ]
     
   if any [
-    0 <> store-int s 13 14 st
-    st/i > 23
-    st/i < 0
+    0 <> PWAW-DT-store-int s 13 14 :i
+    i > 23
+    i < 0
   ][
     return 4
   ]
-  d/hour: st/i
+  d/hour: i
   
   if any [
-    0 <> store-int s 16 17 st
-    st/i > 59
-    st/i < 0
+    0 <> PWAW-DT-store-int s 16 17 :i
+    i > 59
+    i < 0
   ][
     return 5
   ]
-  d/minutes: st/i
+  d/minutes: i
   
   if any [
-    0 <> store-int s 19 20 st
-    st/i > 59
-    st/i < 0
+    0 <> PWAW-DT-store-int s 19 20 :i
+    i > 59
+    i < 0
   ][
     return 6
   ]
-  d/seconds: st/i
+  d/seconds: i
     
   if any [
-    0 <> store-int s 21 23 st
-    st/i > 18
-    st/i < -15
+    0 <> PWAW-DT-store-int s 21 23 :i
+    i > 18
+    i < -15
   ][
     return 7
   ]
-  d/tz-hours: st/i
+  d/tz-hours: i
   
   if any [
-    0 <> store-int s 25 26 st
+    0 <> PWAW-DT-store-int s 25 26 :i
     all [
-     st/i <> 0
-     st/i <> 15
-     st/i <> 30
-     st/i <> 45
+     i <> 0
+     i <> 15
+     i <> 30
+     i <> 45
     ]
   ][
     return 7
   ]
-  d/tz-minutes: st/i
+  d/tz-minutes: i
   
   0
 ]
@@ -344,4 +323,17 @@ PWAW-DT-push-two-digits: func [
     s: s + 1
   ]
   PWAW-C-mold-int i s
+]
+
+PWAW-DT-store-int: func [
+  s           [c-string!]
+  start       [integer!]
+  end         [integer!]
+  pi          [pointer! [integer!]]
+  return:     [integer!]     
+][
+  either any [
+    not PWAW-C-str-int? [s start end] 
+    0 <> PWAW-C-load-int [s pi start end]
+  ][1][0]
 ]
