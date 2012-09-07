@@ -1,0 +1,146 @@
+PWAW Red/System Libs
+
+	Author: Peter W A Wood
+	Date: 7 September 2012
+	Revision: 1
+	Source: <a href="https://github.com/PeterWAWood/Red-System-Libs">github</a>
+
+===Introduction
+
+These are a handful of libraries to add functionality to Red/System:
+
+\table
+
+Library
+
+Description      
+
+=row
+
+Core
+
+Basic functions to support other libs 
+
+=row
+
+Date-Time
+
+Basic date and time functions
+
+=row
+
+Int64
+
+64-bit integer subtraction and division
+
+/table
+
+They are all at a very early stage of development.
+
+===Constraints
+
+---Global Name Space Protection
+
+As the Red/System namespace facility is still at an early stage of development, I have adopted a naming convention to try to avoid naming conflicts with other code. The naming convention is that all globally accessible names (variables, functions, defines) start with my initials and a library identifier. For example, all globally accessible names in the Date-Time library are prefaced with PWAW-DT-.
+
+---Errors
+
+Red/System doesn't have any built-in error or exception handling process so I have adopted a convention of functions returning an integer code. A function will return zero if it has successfully concluded its task and a non-zero code it is encountered an error.
+
+A few functions return a logic! value, they will return false if they encounter an error.
+
+---Memory Allocation
+
+The library functions do not allocate any persistent variables in memory so there should be no memory leakage. A consequence of this is that any data "exported" by the function is done so via arguments passed by reference.
+
+---These Docs
+
+These docs are a simple list of what the libs contain rather than an API doc. (That will follow once Doc Strings have been implemented in Red/System).
+
+Example usage can be found in the Tests for each lib.
+
+===Core
+
+This library provides a few more general definitions and functions that are needed by the other libraries. It can be found in Core/core.reds
+
+---PWAW-C-int64!
+
+An alias for a structure to hold little endian 64 bit integers.
+
+  
+---PWAW-C-compare-strings
+
+An unoptimised function to compare strings.
+
+---PWAW-C-load-int
+
+A function to load an integer! from a c-string! (decimal only). The string must contain a valid decimal literal integer value. The function PWAW-C-str-int can be used to check that a string contains a valid decimal literal integer value.
+
+---PWAW-C-mold-int
+
+A function that provides a decimal literal representation of a string.
+
+---PWAW-C-str-copy
+
+A function to copy the content of one string to another.
+
+---PWAW-C-str-int?
+
+A function to check if a string is a valid literal representation of an integer.
+
+===Date-time
+
+This library provides a function to determine the current time, find the differences between two dates and a cpu-depedent timing mechanism. It can be found in the Date-Time directory.
+
+---PWAW-DT-cpu-ticks!
+
+An alias for an OS-dependent structure to hold timing information
+
+---PWAW-DT-date!
+
+An alias for a structure to hold a date and time.
+
+---PWAW-DT-date-difference
+
+A function that returns the difference between two dates in seconds.
+
+---PWAW-DT-load-date
+
+A function to load a PWAW-DT-date! from a c-string!
+
+---PWAW-DT-now
+
+A function that provides the current date and time
+
+---PWAW-DT-mold-date
+
+A function that provides a c-string! representation of a PWAW-DT-date!
+
+---PWAW-DT-timer
+
+A function that provides an OS-dependent timer using PWAW-DT-cpu-ticks! data structures.
+
+===Int64
+
+A Red/System Library and an external library that performs 64-bit integer arithmetic. It is required by Date-Time under Windows. The external library is provided in source form and binary form for Windows, OS X and Linux. These can all be found in the Int64 directory.
+
+---PWAW-I64-sub
+
+A subtraction function.
+
+---PWAW-I64-division
+
+A division function.
+
+===UTF-8
+
+A library of UTF-8 utilities.
+
+---PWAW-U-verify
+
+A function that verifies that a c-string! is UTF-8 encoded. 
+
+
+  
+
+

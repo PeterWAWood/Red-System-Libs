@@ -1,0 +1,217 @@
+﻿<html>
+  <head>
+    <title>PWAW Red/System Libs</title>
+    <style type="text/css">
+    	html, body, p, td, li {
+    	  font-family: arial, sans-serif, helvetica; font-size: 11pt;
+    	}
+      body {
+        width: 800px;
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+      strike {color: #888;}
+      h1 {font-size: 16pt; Font-Weight: bold;}
+      h2 {
+        font-size: 14pt; color: #2030a0; Font-Weight: bold; width: 100%;
+	      border-bottom: 1px solid #c09060;
+	    }
+      h3 {font-size: 13pt; color: #2030a0; Font-Weight: bold;}
+      h4 {font-size: 12pt; color: #2030a0; Font-Weight: bold;}
+      h5 {font-size: 11pt; Font-Weight: bold;}
+      tt {font-family: "courier new", monospace, courier; color: darkgreen;}
+      pre {
+        font: bold 10pt "courier new", monospace, console;
+	      background-color: #e0e0e0; padding: 16px; border: solid #a0a0a0 1px;
+	    }
+      legend {font-weight: bold;}
+      .toc1 {margin-left: 1cm; font-size: 12pt; font-weight: bold;}
+      .toc2 {
+        margin-left: 2cm; font-size: 11pt; Font-Weight: bold;
+        text-decoration: none;
+      }
+      .toc3 {margin-left: 3cm; font-size: 11pt; text-decoration: none;}
+      .toc4 {
+        margin-left: 4cm; font-size: 11pt; color: grey;
+        text-decoration: none;
+      }
+      .output {
+        color: #000080; font-weight: normal;
+      }
+      .note {
+        background-color: #f0e090;
+        width: 100%;
+        padding: 16px;
+        border: solid #a0a0a0 1px;
+      }
+      .fset, .fset p {background-color: #f0e090;}
+      .fset  {border: solid #a0a0a0 1px;}
+      #tail {
+        color: gray; 
+        font-size: 8pt;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body bgcolor="white">
+    <div id="content" ><h1>PWAW Red/System Libs</h1>
+<blockquote><b>
+Author: Peter W A Wood<br>Date: 7 September 2012<br>Revision: 1<br>Source: <a href="https://github.com/PeterWAWood/Red-System-Libs">github</a>
+</b></blockquote>
+<h2>Contents:</h2>
+<a class="toc1" href="#section-1">1. Introduction</a><br>
+<a class="toc1" href="#section-2">2. Constraints</a><br>
+<a class="toc2" href="#section-2.1">2.1 Global Name Space Protection</a><br>
+<a class="toc2" href="#section-2.2">2.2 Errors</a><br>
+<a class="toc2" href="#section-2.3">2.3 Memory Allocation</a><br>
+<a class="toc2" href="#section-2.4">2.4 These Docs</a><br>
+<a class="toc1" href="#section-3">3. Core</a><br>
+<a class="toc2" href="#section-3.1">3.1 PWAW-C-int64!</a><br>
+<a class="toc2" href="#section-3.2">3.2 PWAW-C-compare-strings</a><br>
+<a class="toc2" href="#section-3.3">3.3 PWAW-C-load-int</a><br>
+<a class="toc2" href="#section-3.4">3.4 PWAW-C-mold-int</a><br>
+<a class="toc2" href="#section-3.5">3.5 PWAW-C-str-copy</a><br>
+<a class="toc2" href="#section-3.6">3.6 PWAW-C-str-int?</a><br>
+<a class="toc1" href="#section-4">4. Date-time</a><br>
+<a class="toc2" href="#section-4.1">4.1 PWAW-DT-cpu-ticks!</a><br>
+<a class="toc2" href="#section-4.2">4.2 PWAW-DT-date!</a><br>
+<a class="toc2" href="#section-4.3">4.3 PWAW-DT-date-difference</a><br>
+<a class="toc2" href="#section-4.4">4.4 PWAW-DT-load-date</a><br>
+<a class="toc2" href="#section-4.5">4.5 PWAW-DT-now</a><br>
+<a class="toc2" href="#section-4.6">4.6 PWAW-DT-mold-date</a><br>
+<a class="toc2" href="#section-4.7">4.7 PWAW-DT-timer</a><br>
+<a class="toc1" href="#section-5">5. Int64</a><br>
+<a class="toc2" href="#section-5.1">5.1 PWAW-I64-sub</a><br>
+<a class="toc2" href="#section-5.2">5.2 PWAW-I64-division</a><br>
+<a class="toc1" href="#section-6">6. UTF-8</a><br>
+<a class="toc2" href="#section-6.1">6.1 PWAW-U-verify</a><br>
+<h2 id="section-1">1. Introduction</h2>
+<blockquote>
+<p>These are a handful of libraries to add functionality to Red/System:</p>
+<table border="0" cellspacing="1" cellpadding="4" bgcolor="#505050">
+		<tr bgcolor="silver"><td><b>
+<p>Library</p>
+</b></td><td><b>
+<p>Description</p>
+</td></tr><tr><td valign="top" bgcolor="white">
+<p>Core</p>
+</td><td valign="top" bgcolor="white">
+<p>Basic functions to support other libs</p>
+</td></tr><tr><td valign="top" bgcolor="white">
+<p>Date-Time</p>
+</td><td valign="top" bgcolor="white">
+<p>Basic date and time functions</p>
+</td></tr><tr><td valign="top" bgcolor="white">
+<p>Int64</p>
+</td><td valign="top" bgcolor="white">
+<p>64-bit integer subtraction and division</p>
+</td></tr></table>
+<p>They are all at a very early stage of development.</p>
+</blockquote>
+<h2 id="section-2">2. Constraints</h2>
+<blockquote>
+</blockquote>
+<h3 id="section-2.1">2.1 Global Name Space Protection</h3>
+<blockquote>
+<p>As the Red/System namespace facility is still at an early stage of development, I have adopted a naming convention to try to avoid naming conflicts with other code. The naming convention is that all globally accessible names (variables, functions, defines) start with my initials and a library identifier. For example, all globally accessible names in the Date-Time library are prefaced with PWAW-DT-.</p>
+</blockquote>
+<h3 id="section-2.2">2.2 Errors</h3>
+<blockquote>
+<p>Red/System doesn't have any built-in error or exception handling process so I have adopted a convention of functions returning an integer code. A function will return zero if it has successfully concluded its task and a non-zero code it is encountered an error.</p>
+<p>A few functions return a logic! value, they will return false if they encounter an error.</p>
+</blockquote>
+<h3 id="section-2.3">2.3 Memory Allocation</h3>
+<blockquote>
+<p>The library functions do not allocate any persistent variables in memory so there should be no memory leakage. A consequence of this is that any data "exported" by the function is done so via arguments passed by reference.</p>
+</blockquote>
+<h3 id="section-2.4">2.4 These Docs</h3>
+<blockquote>
+<p>These docs are a simple list of what the libs contain rather than an API doc. (That will follow once Doc Strings have been implemented in Red/System).</p>
+<p>Example usage can be found in the Tests for each lib.</p>
+</blockquote>
+<h2 id="section-3">3. Core</h2>
+<blockquote>
+<p>This library provides a few more general definitions and functions that are needed by the other libraries. It can be found in Core/core.reds</p>
+</blockquote>
+<h3 id="section-3.1">3.1 PWAW-C-int64!</h3>
+<blockquote>
+<p>An alias for a structure to hold little endian 64 bit integers.</p>
+</blockquote>
+<h3 id="section-3.2">3.2 PWAW-C-compare-strings</h3>
+<blockquote>
+<p>An unoptimised function to compare strings.</p>
+</blockquote>
+<h3 id="section-3.3">3.3 PWAW-C-load-int</h3>
+<blockquote>
+<p>A function to load an integer! from a c-string! (decimal only). The string must contain a valid decimal literal integer value. The function PWAW-C-str-int can be used to check that a string contains a valid decimal literal integer value.</p>
+</blockquote>
+<h3 id="section-3.4">3.4 PWAW-C-mold-int</h3>
+<blockquote>
+<p>A function that provides a decimal literal representation of a string.</p>
+</blockquote>
+<h3 id="section-3.5">3.5 PWAW-C-str-copy</h3>
+<blockquote>
+<p>A function to copy the content of one string to another.</p>
+</blockquote>
+<h3 id="section-3.6">3.6 PWAW-C-str-int?</h3>
+<blockquote>
+<p>A function to check if a string is a valid literal representation of an integer.</p>
+</blockquote>
+<h2 id="section-4">4. Date-time</h2>
+<blockquote>
+<p>This library provides a function to determine the current time, find the differences between two dates and a cpu-depedent timing mechanism. It can be found in the Date-Time directory.</p>
+</blockquote>
+<h3 id="section-4.1">4.1 PWAW-DT-cpu-ticks!</h3>
+<blockquote>
+<p>An alias for an OS-dependent structure to hold timing information</p>
+</blockquote>
+<h3 id="section-4.2">4.2 PWAW-DT-date!</h3>
+<blockquote>
+<p>An alias for a structure to hold a date and time.</p>
+</blockquote>
+<h3 id="section-4.3">4.3 PWAW-DT-date-difference</h3>
+<blockquote>
+<p>A function that returns the difference between two dates in seconds.</p>
+</blockquote>
+<h3 id="section-4.4">4.4 PWAW-DT-load-date</h3>
+<blockquote>
+<p>A function to load a PWAW-DT-date! from a c-string!</p>
+</blockquote>
+<h3 id="section-4.5">4.5 PWAW-DT-now</h3>
+<blockquote>
+<p>A function that provides the current date and time</p>
+</blockquote>
+<h3 id="section-4.6">4.6 PWAW-DT-mold-date</h3>
+<blockquote>
+<p>A function that provides a c-string! representation of a PWAW-DT-date!</p>
+</blockquote>
+<h3 id="section-4.7">4.7 PWAW-DT-timer</h3>
+<blockquote>
+<p>A function that provides an OS-dependent timer using PWAW-DT-cpu-ticks! data structures.</p>
+</blockquote>
+<h2 id="section-5">5. Int64</h2>
+<blockquote>
+<p>A Red/System Library and an external library that performs 64-bit integer arithmetic. It is required by Date-Time under Windows. The external library is provided in source form and binary form for Windows, OS X and Linux. These can all be found in the Int64 directory.</p>
+</blockquote>
+<h3 id="section-5.1">5.1 PWAW-I64-sub</h3>
+<blockquote>
+<p>A subtraction function.</p>
+</blockquote>
+<h3 id="section-5.2">5.2 PWAW-I64-division</h3>
+<blockquote>
+<p>A division function.</p>
+</blockquote>
+<h2 id="section-6">6. UTF-8</h2>
+<blockquote>
+<p>A library of UTF-8 utilities.</p>
+</blockquote>
+<h3 id="section-6.1">6.1 PWAW-U-verify</h3>
+<blockquote>
+<p>A function that verifies that a c-string! is UTF-8 encoded.</p>
+</blockquote>
+</div>
+    <div id="tail">
+	    <a href="http://www.rebol.com">MakeDoc2 by REBOL</a> - 7-Sep-2012
+    </div>
+  </body>
+</html>
