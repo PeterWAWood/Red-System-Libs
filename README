@@ -1,4 +1,4 @@
-This is a library of Red/System function collections. Three collections have been started:
+This is a library of Red/System function collections. Four collections have been started:
        
        Core                  - Basic functions to support other libs 
        Date-Time             - Basic date and time functions
