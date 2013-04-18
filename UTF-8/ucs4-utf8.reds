@@ -7,21 +7,28 @@ Red/System [
 	License: "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
-PWAW-utf8-char!: alias struct! [
-	byte1				[byte!]
-	byte2				[byte!]
-	byte3				[byte!]
-	byte4				[byte!]
-]
 	
 PWAW-ucs4-utf8: func [
 	ucs4 				[integer!]
-	return: 			[PWAW-utf8-char!]
+	return: 			[c-string!]
 	/local
 		b				[byte!]
-		utf8			[PWAW-utf8-char!]
+		utf8			[struct! [
+							byte1 [byte!]
+							byte2 [byte!]
+							byte3 [byte!]
+							byte4 [byte!]
+							byte5 [byte!]
+		]]
 ][
-	utf8: declare PWAW-utf8-char!
+	utf8: declare struct! [
+		byte1 [byte!]
+		byte2 [byte!]
+		byte3 [byte!]
+		byte4 [byte!]
+		byte5 [byte!]
+	]
+	
 	either ucs4 < 256 [
 		utf8/byte1: as byte! ucs4
 	][
@@ -44,7 +51,6 @@ PWAW-ucs4-utf8: func [
 		]
 	]
 	
-	
-	utf8
+	as c-string! utf8
 ]
 
