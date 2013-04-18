@@ -30,20 +30,22 @@ PWAW-DT-date!: alias struct! [
 ]
 
 PWAW-DT-load-date: func [
-  ; Loads the supplied date structure from a string 
-  s               [c-string!]
-  d               [PWAW-DT-date!]
- return:          [integer!]
-  ; returns:
-  ;     0 - successful
-  ;     1 - invalid day
-  ;     2 - invalid month
-  ;     3 - invalid year
-  ;     4 - invalid hour
-  ;     5 - invalid minutes
-  ;     6 - invalid seconds
-  ;     7 - invalid time zone
-  ;     8 - non-existant date
+  {Loads the supplied date structure from a string}
+  s               [c-string!]        {"dd-mmm-yyyy/hh:mm:ss+hh:mm"}
+  d               [PWAW-DT-date!]    {an initialised PWAW-DT-date! struct in 
+                                      which the date value will be placed}
+  return:          [integer!]         {
+  
+       0 - successful
+       1 - invalid day
+       2 - invalid month
+       3 - invalid year
+       4 - invalid hour
+       5 - invalid minutes
+       6 - invalid seconds
+       7 - invalid time zone
+       8 - non-existant date
+  }
    
   /local
     mth         [c-string!]
@@ -228,14 +230,16 @@ PWAW-DT-load-date: func [
 ]
 
 PWAW-DT-mold-date: func [
-  ; Provides a string representation of a date
-  d               [PWAW-DT-date!]
-  md              [c-string!]             ;; molded date - min 26 characters
+  {Provides a string representation of a date}
+  d               [PWAW-DT-date!]         {the date}
+  md              [c-string!]             
+    {a string of at least 26 characters in
+     which the molded date will be returned}
   return:         [integer!]
-  ; returns:
-  ;     0 - successful
-  ;     1 - provided string too short
-  ;     2 - invalid month
+  {    0 - successful
+       1 - provided string too short
+       2 - invalid month
+  }
   /local
   i             [integer!]
   pos           [integer!]
@@ -304,6 +308,7 @@ PWAW-DT-mold-date: func [
 ]
 
 PWAW-DT-push-month: func [
+  {private}
   s [c-string!]
   a [byte!]
   b [byte!]
@@ -315,6 +320,7 @@ PWAW-DT-push-month: func [
 ]
 
 PWAW-DT-push-two-digits: func [
+  {private}
   i [integer!]
   s [c-string!]
 ][
@@ -326,6 +332,7 @@ PWAW-DT-push-two-digits: func [
 ]
 
 PWAW-DT-store-int: func [
+  {private}
   s           [c-string!]
   start       [integer!]
   end         [integer!]

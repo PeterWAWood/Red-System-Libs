@@ -1,8 +1,8 @@
 Red/System [
-  Purpose:     Win32 module for date-time library
-  Author:      Peter W A Wood
-  Version:     0.1.0
-  Rights:      Copyright © 2012 Peter W A Wood. All rights reserved.
+  Purpose:     "Win32 module for date-time library"
+  Author:      "Peter W A Wood"
+  Version:     "0.1.0"
+  Rights:      "Copyright © 2012 Peter W A Wood. All rights reserved."
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
@@ -118,10 +118,10 @@ PWAW-DT-time-zone!: alias struct! [
 ]
 
 PWAW-DT-date-difference: func [
-;; returns the difference between two dates in seconds
-  date1           [PWAW-DT-date!]
+  {returns the difference between two dates in seconds}
+  date1           [PWAW-DT-date!]           
   date2           [PWAW-DT-date!]
-  return:         [integer!]
+  return:         [integer!]     "Difference between the two dates in seconds"
   /local
   tm              [PWAW-DT-tm!]
   time1           [integer!]
@@ -130,7 +130,7 @@ PWAW-DT-date-difference: func [
   tz2             [integer!]
   ft              [PWAW-C-int64!]
   time            [PWAW-C-int64!]
-  ten-million [PWAW-C-int64!]
+  ten-million     [PWAW-C-int64!]
 ][
   ft: declare PWAW-C-int64!
   tm: declare PWAW-DT-tm!
@@ -163,6 +163,7 @@ PWAW-DT-date-difference: func [
 ]
 
 PWAW-DT-date-to-tm: func [
+  "private"
   date             [PWAW-DT-date!]
   tm               [PWAW-DT-tm!]
   /local
@@ -186,6 +187,7 @@ PWAW-DT-date-to-tm: func [
 ]
 
 PWAW-DT-ms-word-to-int: func [
+  "private"
   high      [byte!]
   low       [byte!]
   return:   [integer!]
@@ -194,15 +196,17 @@ PWAW-DT-ms-word-to-int: func [
 ]
 
 PWAW-DT-now: func [
-;; fills the result structure argument with details of the current date/time
-;; returns:
-;;        0 - successful
-;;        1 - cannot retrieve time from os
-;;        2 - cannot convert the machine time
-;;        3 - cannot retrieve time zone
-
-  result      [PWAW-DT-date!]
+  {fills the result structure argument with details of the current date/time}
+  result      [PWAW-DT-date!]    
+    {an initialised PWAW-DT-date! struct in 
+     which the current day and time will be placed}
   return:     [integer!]
+  {
+          0 - successful
+          1 - cannot retrieve time from os
+          2 - cannot convert the machine time
+          3 - cannot retrieve time zone
+  }
   /local
   errcode     [integer!]
   tm          [PWAW-DT-tm!]
@@ -244,20 +248,26 @@ PWAW-DT-now: func [
 ]
 
 PWAW-DT-timer: func [
+  {A timer function}
   action        [integer!]
+  {
+   action = 1 (Start timer) 
+     fills start-tick with the current cpu tick
+   use PWAW-DT-start-timer start-tick ticks-taken to start
+   action = 2 (Read timer)
+      calculates the time-taken from the supplied start-time
+   use PWAW-DT-time-taken start-tick ticks-taken to read the timer}
   start-tick    [PWAW-DT-cpu-ticks!]
+  {the ticks when the timer was started}
   ticks-taken   [PWAW-DT-cpu-ticks!]
+  {the ticks taken}
   return:       [integer!]
-;;  action = 1 (Start timer)
-;;    fills start-tick with the current cpu tick
-;;  action = 2 (Read timer)
-;;     calculates the time-taken from the supplied start-time
-;;  return values:
-;;        0 - successful
-;;        1 - cannot retrieve time from os
-;;        2 - no start tick supplied
-;;        3 - start tick lower than current tick
-;;        4 - difference to large for int 32
+    {   0 - successful
+        1 - cannot retrieve time from os
+        2 - no start tick supplied
+        3 - start tick lower than current tick
+        4 - difference to large for int 32
+    }
   /local
     current-tick  [PWAW-DT-cpu-ticks!]
 ][
@@ -290,6 +300,7 @@ PWAW-DT-timer: func [
 
 // debugging function
 PWAW-DT-print-tm: func [
+  "private"
   tm    [PWAW-DT-tm!]
 ][
   print ["year " ((as integer! tm/year-high) * 256 + (as integer! tm/year-low)) lf]

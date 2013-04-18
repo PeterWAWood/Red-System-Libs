@@ -1,0 +1,50 @@
+Red/System [
+	Title:   "ucs-4 to utf-8"
+	Author:  "Peter W A Wood"
+	File: 	 %ucs4-utf8.reds
+	Version: 0.0.1
+	Rights:  "Copyright (C) 2013 Peter W A Wood. All rights reserved."
+	License: "Distributed under the Boost Software License, Version 1.0."
+	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
+]
+PWAW-utf8-char!: alias struct! [
+	byte1				[byte!]
+	byte2				[byte!]
+	byte3				[byte!]
+	byte4				[byte!]
+]
+	
+PWAW-ucs4-utf8: func [
+	ucs4 				[integer!]
+	return: 			[PWAW-utf8-char!]
+	/local
+		b				[byte!]
+		utf8			[PWAW-utf8-char!]
+][
+	utf8: declare PWAW-utf8-char!
+	either ucs4 < 256 [
+		utf8/byte1: as byte! ucs4
+	][
+		either ucs4 < 65536 [                  ;; BMP
+			either ucs4 < 0800h [
+				b: as byte! (ucs4 >>> 6)
+				utf8/byte1: (as byte! C0h) or b
+				b: as byte! (ucs4 and 3Fh)
+				utf8/byte2: (as byte! 80h) or b
+			][
+				b: as byte! (ucs4 >>> 12)
+				utf8/byte1: (as byte! E0h) or b
+				b: as byte! ((ucs4 >>> 6) and 3Fh)
+				utf8/byte2: (as byte! 80h) or b
+				b: as byte! (ucs4 and 3Fh)
+				utf8/byte3: (as byte! 80h) or b
+			]
+		][										;; only handle BMP for now
+			utf8/byte1: as byte! 0
+		]
+	]
+	
+	
+	utf8
+]
+

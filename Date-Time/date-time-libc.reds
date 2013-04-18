@@ -1,8 +1,8 @@
 Red/System [
-  Purpose:     LibC module for date-time library
-  Author:      Peter W A Wood
+  Purpose:     "LibC module for date-time library"
+  Author:      "Peter W A Wood"
   Version:     0.1.0
-  Rights:      Copyright © 2011 Peter W A Wood. All rights reserved.
+  Rights:      "Copyright © 2011 Peter W A Wood. All rights reserved."
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
@@ -103,15 +103,15 @@ PWAW-DT-date-difference: func [
 ]
 
 PWAW-DT-now: func [
-;; fills the result structure argument with details of the current date/time
-;; returns:
-;;        0 - successful
-;;        1 - cannot retrieve time from os
-;;        2 - cannot convert the machine time
-;;        3 - cannot retrieve time zone
-
+  {provides the current date/time}
   result      [PWAW-DT-date!]
+  {An initialised PWAW-DT-date! struct for the date/time}
   return:     [integer!]
+  {    0 - successful
+       1 - cannot retrieve time from os
+       2 - cannot convert the machine time
+       3 - cannot retrieve time zone
+  }
   /local
   errcode     [integer!]
   tz          [struct! [
@@ -155,20 +155,26 @@ PWAW-DT-now: func [
 ]
  
 PWAW-DT-timer: func [
+  {A timer function}
   action        [integer!]
+  {
+   action = 1 (Start timer) 
+     fills start-tick with the current cpu tick
+   use PWAW-DT-start-timer start-tick ticks-taken to start
+   action = 2 (Read timer)
+      calculates the time-taken from the supplied start-time
+   use PWAW-DT-time-taken start-tick ticks-taken to read the timer}
   start-tick    [pointer! [integer!]]
+  {the ticks when the timer was started}
   ticks-taken   [pointer! [integer!]]
+  {the ticks taken}
   return:       [integer!]
-;;  action = 1 (Start timer)
-;;    fills start-tick with the current cpu tick
-;;  action = 2 (Read timer)
-;;     calculates the time-taken from the supplied start-time
-;;  return values:
-;;        0 - successful
-;;        1 - cannot retrieve time from os
-;;        2 - no start tick supplied
-;;        3 - start tick lower than current tick
-;;        4 - difference to large for int 32
+    {   0 - successful
+        1 - cannot retrieve time from os
+        2 - no start tick supplied
+        3 - start tick lower than current tick
+        4 - difference to large for int 32
+    }
   /local
     current-tick  [integer!]
 ][
