@@ -35,15 +35,15 @@ Red/System [
 	--assert (as byte! 0) = utf8/4
 	
 	--test-- "ucs4-utf8-4"
-		utf8: PWAW-ucs4-utf8 255
-	--assert (as byte! 255) = utf8/1
+		utf8: PWAW-ucs4-utf8 127
+	--assert (as byte! 127) = utf8/1
 	--assert (as byte! 0) = utf8/2
 	--assert (as byte! 0) = utf8/3
 	--assert (as byte! 0) = utf8/4
 	
 	--test-- "ucs4-utf8-5"
-		utf8: PWAW-ucs4-utf8 256
-	--assert (as byte! C4h) = utf8/1
+		utf8: PWAW-ucs4-utf8 128
+	--assert (as byte! C2h) = utf8/1
 	--assert (as byte! 80h) = utf8/2
 	--assert (as byte! 0) = utf8/3
 	--assert (as byte! 0) = utf8/4
@@ -67,6 +67,34 @@ Red/System [
 	--assert (as byte! E7h) = utf8/1
 	--assert (as byte! BFh) = utf8/2
 	--assert (as byte! BFh) = utf8/3
+	--assert (as byte! 0) = utf8/4
+	
+	--test-- "ucs4-utf8-9"
+		utf8: PWAW-ucs4-utf8 F1h
+	--assert (as byte! C3h) = utf8/1
+	--assert (as byte! B1h) = utf8/2
+	--assert (as byte! 0) = utf8/3
+	--assert (as byte! 0) = utf8/4
+	
+	--test-- "ucs4-utf8-10"
+		utf8: PWAW-ucs4-utf8 0420h
+	--assert (as byte! D0h) = utf8/1
+	--assert (as byte! A0h) = utf8/2
+	--assert (as byte! 0) = utf8/3
+	--assert (as byte! 0) = utf8/4
+	
+	--test-- "ucs4-utf8-11"
+		utf8: PWAW-ucs4-utf8 0443h
+	--assert (as byte! D1h) = utf8/1
+	--assert (as byte! 83h) = utf8/2
+	--assert (as byte! 0) = utf8/3
+	--assert (as byte! 0) = utf8/4
+	
+	--test-- "ucs4-utf8-12"
+		utf8: PWAW-ucs4-utf8 0161h
+	--assert (as byte! C5h) = utf8/1
+	--assert (as byte! A1h) = utf8/2
+	--assert (as byte! 0) = utf8/3
 	--assert (as byte! 0) = utf8/4
       
 ~~~end-file~~~

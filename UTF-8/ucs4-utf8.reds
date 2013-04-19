@@ -21,6 +21,7 @@ PWAW-ucs4-utf8: func [
 							byte5 [byte!]
 		]]
 ][
+	
 	utf8: declare struct! [
 		byte1 [byte!]
 		byte2 [byte!]
@@ -29,10 +30,16 @@ PWAW-ucs4-utf8: func [
 		byte5 [byte!]
 	]
 	
-	either ucs4 < 256 [
+	utf8/byte1: null-byte
+	utf8/byte2: null-byte
+	utf8/byte3: null-byte
+	utf8/byte4: null-byte
+	utf8/byte5: null-byte
+	
+	either ucs4 < 128 [
 		utf8/byte1: as byte! ucs4
 	][
-		either ucs4 < 65536 [                  ;; BMP
+		either ucs4 < 00010000h [                  ;; BMP
 			either ucs4 < 0800h [
 				b: as byte! (ucs4 >>> 6)
 				utf8/byte1: (as byte! C0h) or b
