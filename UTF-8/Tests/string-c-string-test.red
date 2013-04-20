@@ -14,10 +14,13 @@ Red [
 		scs1-r: routine: [
 			str			[string!]
 			return:		[logic!]
+			/local
+				c-str
 		][
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/Core/core.reds
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/UTF-8/string-c-string.reds
-			PWAW-C-compare-strings "hello world" PWAW-string-c-string str
+			c-str: PWAW-string-c-string str
+			PWAW-C-compare-strings "hello world" c-str
 		]
 	--assert scs1-r "hello world"
 	

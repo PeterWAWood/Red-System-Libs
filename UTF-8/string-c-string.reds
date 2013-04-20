@@ -34,8 +34,8 @@ PWAW-string-c-string: func [
 	tail: string/rs-tail str
 	utf8p: 1
 	utf8ch: ""
-	utf8chp: 1
-	utf8: as c-string! alloc-bytes (((as integer! tail) - (as integer! p)) / 4)
+	utf8chp: 1 
+	utf8: as c-string! allocate (((as integer! tail) - (as integer! p)) * 4)
 	s: GET_BUFFER(str)
 	unit: GET_UNIT(s)
 	while [p < tail][
