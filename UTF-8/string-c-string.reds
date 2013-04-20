@@ -24,6 +24,7 @@ PWAW-string-c-string: func [
 		utf8p	[integer!]
 		utf8ch	[c-string!]
 		utf8chp	[integer!]
+		ut8len	[integer!]
 ][
 	#include %ucs4-utf8.reds
 
@@ -35,9 +36,20 @@ PWAW-string-c-string: func [
 	utf8p: 1
 	utf8ch: ""
 	utf8chp: 1 
-	utf8: as c-string! allocate (((as integer! tail) - (as integer! p)) * 4)
 	s: GET_BUFFER(str)
 	unit: GET_UNIT(s)
+	utf8len: 0
+	while [p < tail][								;; esitmate c-string length
+		switch unit [
+			Latin1	[utf8len: utf8len + 1]
+			UCS-2	[utf8len: utf8len + 3]
+			UCS-4	[utf8len: utf8len + 4]
+		]
+		p: p + unit
+	]
+	utf8len: utf8len + 1							;; allow for end of string
+	utf8: as c-string! allocate utf8len
+	p: string/rs-head str
 	while [p < tail][
 		cp: switch unit [
 			Latin1 [as-integer p/value]
