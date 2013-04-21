@@ -12,15 +12,18 @@ Red [
 	
 	--test-- "scs1"
 		scs1-r: routine: [
-			str			[string!]
-			return:		[logic!]
+			str					[string!]
+			return:				[logic!]
 			/local
-				c-str
+				c-str			[c-string!]
+				ret-value		[logic!]
 		][
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/Core/core.reds
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/UTF-8/string-c-string.reds
 			c-str: PWAW-string-c-string str
-			PWAW-C-compare-strings "hello world" c-str
+			ret-value: PWAW-C-compare-strings "hello world" c-str
+			free as byte-ptr! c-str
+			ret-value
 		]
 	--assert scs1-r "hello world"
 	
@@ -28,11 +31,18 @@ Red [
 		scs2-r: routine: [
 			str			[string!]
 			return:		[logic!]
+			/local
+				c-str			[c-string!]
+				ret-value		[logic!]
 		][
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/Core/core.reds
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/UTF-8/string-c-string.reds
-			PWAW-C-compare-strings {EspañolРусскийSlovenščina} PWAW-string-c-string str
+			c-str: PWAW-string-c-string str
+			ret-value: PWAW-C-compare-strings {EspañolРусскийSlovenščina} c-str
+			free as byte-ptr! c-str
+			ret-value
 		]
+			
 	--assert scs2-r {EspañolРусскийSlovenščina}
 	  
 ~~~end-file~~~

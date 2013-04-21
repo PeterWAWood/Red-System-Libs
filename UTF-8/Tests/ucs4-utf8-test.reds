@@ -96,5 +96,19 @@ Red/System [
 	--assert (as byte! A1h) = utf8/2
 	--assert (as byte! 0) = utf8/3
 	--assert (as byte! 0) = utf8/4
-      
+	
+	--test-- "ucs4-utf8-13"
+		utf8: PWAW-ucs4-utf8 00010000h
+	--assert (as byte! F0h) = utf8/1
+	--assert (as byte! 90h) = utf8/2
+	--assert (as byte! 80h) = utf8/3
+	--assert (as byte! 80h) = utf8/4
+	
+	--test-- "ucs4-utf8-14"
+		utf8: PWAW-ucs4-utf8 0010FFFFh
+	--assert (as byte! F4h) = utf8/1
+	--assert (as byte! 8Fh) = utf8/2
+	--assert (as byte! BFh) = utf8/3
+	--assert (as byte! BFh) = utf8/4
+	
 ~~~end-file~~~

@@ -12,7 +12,7 @@ PWAW-ucs4-utf8: func [
 	ucs4 				[integer!]
 	return: 			[c-string!]
 	/local
-		b				[byte!]
+		byte			[byte!]
 		utf8			[struct! [
 							byte1 [byte!]
 							byte2 [byte!]
@@ -41,23 +41,36 @@ PWAW-ucs4-utf8: func [
 	][
 		either ucs4 < 00010000h [                  ;; BMP
 			either ucs4 < 0800h [
-				b: as byte! (ucs4 >>> 6)
-				utf8/byte1: (as byte! C0h) or b
-				b: as byte! (ucs4 and 3Fh)
-				utf8/byte2: (as byte! 80h) or b
+				byte: as byte! (ucs4 >>> 6)
+				utf8/byte1: (as byte! C0h) or byte
+				byte: as byte! (ucs4 and 3Fh)
+				utf8/byte2: (as byte! 80h) or byte
 			][
-				b: as byte! (ucs4 >>> 12)
-				utf8/byte1: (as byte! E0h) or b
-				b: as byte! ((ucs4 >>> 6) and 3Fh)
-				utf8/byte2: (as byte! 80h) or b
-				b: as byte! (ucs4 and 3Fh)
-				utf8/byte3: (as byte! 80h) or b
+				byte: as byte! (ucs4 >>> 12)
+				utf8/byte1: (as byte! E0h) or byte
+				byte: as byte! ((ucs4 >>> 6) and 3Fh)
+				utf8/byte2: (as byte! 80h) or byte
+				byte: as byte! (ucs4 and 3Fh)
+				utf8/byte3: (as byte! 80h) or byte
 			]
-		][										;; only handle BMP for now
-			utf8/byte1: as byte! 0
+		][										;; only handles up to Code Point
+												;;  1FFFFFh which handles the
+												;;  currently defined Unicode
+												;;	planes (highest is 10FFFFh
+		    either ucs4 < 001FFFFFh [								
+				byte: as byte! (ucs4 >>> 18)
+				utf8/byte1: (as byte! F0h) or byte
+				byte: as byte! ((ucs4 >>> 12) and 3Fh)
+				utf8/byte2: (as byte! 80h) or byte
+				byte: as byte! ((ucs4 >>> 6) and 3Fh)
+				utf8/byte3: (as byte! 80h) or byte
+				byte: as byte! (ucs4 and 3Fh)
+				utf8/byte4: (as byte! 80h) or byte
+			][
+				utf8/byte1: null-byte           ;; to signify error in input
+			]
 		]
-	]
-	
+	]	
 	as c-string! utf8
 ]
 
