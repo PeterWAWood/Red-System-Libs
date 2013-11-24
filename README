@@ -1,10 +1,10 @@
 This is a library of Red/System function collections. The collections that have been started are:
        
        Core          - Core functions to support other libs 
-       Date-Time     - Date and time functions
+       DateTime      - Date and time functions
        Int64         - 64-bit integer arithmetic
        LibTomMaths   - A partial implementation of LibTom
-       UTF-8         - Functions for handling UTF-8 strings
+       UTF8          - Functions for handling UTF-8 strings
 
 They are all at a very early stage of development.
 
@@ -13,3 +13,6 @@ Scripts for compilation and testing are written in Rebol and Ruby.
 By the convention, the functions return an integer return code whilst their results are returned
 in a user supplied argument (or arguments). The exception to this are functions where the return
 value is either true or false. Typically the name of these functions end in a ?.
+
+Each of the function and compiler definition names begins with the prefix PWAW- followed by a short mnenomic to
+indicate which library (e.g. PWAW-LTM for LibTomMaths).
