@@ -9,3 +9,7 @@ This is a library of Red/System function collections. The collections that have 
 They are all at a very early stage of development.
 
 Scripts for compilation and testing are written in Rebol and Ruby.
+
+By the convention, the functions return an integer return code whilst their results are returned
+in a user supplied argument (or arguments). The exception to this are functions where the return
+value is either true or false. Typically the name of these functions end in a ?.
