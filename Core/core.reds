@@ -9,7 +9,7 @@ Red/System [
 
 PWAW-C-int64!: alias struct! [ 
   low             [integer!]
-  high            [integer!]
+  high            [pointer! [integer!]]
 ]
 
 PWAW-C-compare-strings: func [

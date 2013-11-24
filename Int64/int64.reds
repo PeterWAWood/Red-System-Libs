@@ -1,43 +1,13 @@
 Red/System [
   Purpose:     Temporary int64! arithmeticlibrary
   Author:      Peter W A Wood
-  Version:     0.1.0
-  Rights:      Copyright © 2012 Peter W A Wood. All rights reserved.
+  Version:     0.2.0
+  Rights:      Copyright © 2012-2013 Peter W A Wood. All rights reserved.
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
 #include %../Core/core.reds
-
-#switch OS [
-	Windows  [
-	  #define INT64-FILE	"c:\Users\Peter\Code\Red-System\Red-System-Libs\Int64\i64.dll"
-	]
-	MacOSX	 [
-	  #define INT64-FILE	"/Users/peter/Code/Red-System/Red-System-Libs/Int64/libi64.dylib"
-	]
-	#default [
-		#define INT64-FILE	"/home/peter/Code/Red-System-Libs/Int64/libi64.so"
-	]
-]
-
-#import [
-	INT64-FILE cdecl [
-	  PWAW-I64-subtract: "subtract" [
-	    i           [PWAW-C-int64!]
-	    j           [PWAW-C-int64!]
-	    k           [PWAW-C-int64!]
-	    return:     [integer!]
-	  ]
-	  PWAW-I64-divide: "divide" [
-	    i           [PWAW-C-int64!]
-	    j           [PWAW-C-int64!]
-	    k           [PWAW-C-int64!]
-	    return:     [integer!]
-	  ]
-	]
-]
-
 
 PWAW-I64-sub: func [
   ;; subtracts the 2nd argument from the 1st and places the answer in the 3rd
@@ -47,8 +17,14 @@ PWAW-I64-sub: func [
 	j                 [PWAW-C-int64!]
 	k                 [PWAW-C-int64!]
 	return:           [integer!]
+	/local
+	  carry           [integer!]
 ][
-  PWAW-I64-subtract i j k
+  either j/high > i/high [
+    
+  ][
+
+  ]
   0
 ]
 
