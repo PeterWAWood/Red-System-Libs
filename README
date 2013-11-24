@@ -1,11 +1,10 @@
-This is a library of Red/System function collections. Four collections have been started:
+This is a library of Red/System function collections. The collections that have been started are:
        
-       Core                  - Basic functions to support other libs 
-       Date-Time             - Basic date and time functions
-       Int64                 - Functions for 64-bit integer subtraction and division 
-                                   uses external pre-compiled libraries
-                                   needed by date-difference function under Windows
-       UTF-8                 - Functions for handling UTF-8 strings
+       Core          - Core functions to support other libs 
+       Date-Time     - Date and time functions
+       Int64         - 64-bit integer arithmetic
+       LibTomMaths   - A partial implementation of LibTom
+       UTF-8         - Functions for handling UTF-8 strings
 
 They are all at a very early stage of development.
 
