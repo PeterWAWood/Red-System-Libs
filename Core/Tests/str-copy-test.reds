@@ -6,15 +6,15 @@ Red/System [
 	License: "BSD-3 - https://github.com/dockimbel/Red/blob/origin/BSD-3-License.txt"
 ]
 
-#include %../../quick-test/quick-test.reds
-#include %../core.reds
+#include %../../quick-test.reds
+#include %../PWAW-C-core.reds
 
 ~~~start-file~~~ "str-copy"
     
 	--test-- "sc-1"
 	  s: ""
 	--assert 0 = PWAW-C-str-copy "" s
-	--assert PWAW-C-compare-strings "" s
+	--assert PWAW-C-str-equal? "" s
 	
 	--test-- "sc-2"
 	  s: ""
@@ -23,12 +23,12 @@ Red/System [
 	--test-- "sc-3"
 	  s: "abcdefgh"
 	--assert 0 = PWAW-C-str-copy " " s
-	--assert PWAW-C-compare-strings " " s
+	--assert PWAW-C-str-equal? " " s
 	
 	--test-- "sc-4"
 	  s: "abcde"
 	--assert 0 = PWAW-C-str-copy "12345" s
-	--assert PWAW-C-compare-strings "12345" s
+	--assert PWAW-C-str-equal? "12345" s
 	
 ~~~end-file~~~
 

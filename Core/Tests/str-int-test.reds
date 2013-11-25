@@ -6,8 +6,8 @@ Red/System [
 	License: "BSD-3 - https://github.com/dockimbel/Red/blob/origin/BSD-3-License.txt"
 ]
 
-#include %../../quick-test/quick-test.reds
-#include %../core.reds
+#include %../../quick-test.reds
+#include %../PWAW-C-core.reds
 
 ~~~start-file~~~ "str-int?"
     
@@ -39,54 +39,27 @@ Red/System [
 	--assert not PWAW-C-str-int? "123cd67890"
 	
 	--test-- "si-10"
-	--assert PWAW-C-str-int? ["abcde1234567890abcde" 6 15]
-	
-	--test-- "si-11"
-	--assert not PWAW-C-str-int? 123
-	
-	--test-- "si-12"
-	--assert not PWAW-C-str-int? ["1234567890" 2]
-	
-	--test-- "si-13"
-	--assert not PWAW-C-str-int? ["12345b7890" 5 7]
-	
-	--test-- "si-14"
-	--assert not PWAW-C-str-int? ["1234567890" -1 2]
-	
-	--test-- "si-15"
-	--assert not PWAW-C-str-int? ["1234567890" 3 2]
-	
-	--test-- "si-16"
-	--assert not PWAW-C-str-int? ["1234567890" 11 9]
-	
-	--test-- "si-17"
-	--assert not PWAW-C-str-int? ["1234567890" 9 11]
-	
-	--test-- "si-18"
-	--assert not PWAW-C-str-int? ["1234567890" "a" 11]
-	
-	--test-- "si-19"
-	--assert not PWAW-C-str-int? ["1234567890" 1 "c"]
-	
-	--test-- "si-20"
 	--assert PWAW-C-str-int? "2147483647"
 	
-	--test-- "si-21"
+	--test-- "si-11"
+	--assert PWAW-C-str-int? "+2147483647"
+	
+	--test-- "si-12"
 	--assert PWAW-C-str-int? "-2147483648"
 	
-	--test-- "si-22"
+	--test-- "si-13"
 	--assert not PWAW-C-str-int? "2147483648"
 	
-	--test-- "si-23"
+	--test-- "si-14"
 	--assert not PWAW-C-str-int? "-2147483649"
 	
-	--test-- "si-24"
+	--test-- "si-15"
 	--assert not PWAW-C-str-int? "2147483657"
 	
-	--test-- "si-25"
+	--test-- "si-16"
 	--assert PWAW-C-str-int? "+1"
 	
-	--test-- "si-26"
+	--test-- "si-17"
 	--assert not PWAW-C-str-int? "+"
 	
 ~~~end-file~~~
