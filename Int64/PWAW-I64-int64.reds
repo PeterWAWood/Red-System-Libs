@@ -1,21 +1,24 @@
 Red/System [
-  Purpose:     Temporary int64! arithmeticlibrary
+  Purpose:     int64! arithmetic library
   Author:      Peter W A Wood
-  Version:     0.2.0
-  Rights:      Copyright © 2012-2013 Peter W A Wood. All rights reserved.
+  Version:     0.2.1
+  Rights:      "Copyright © 2012-2013 Peter W A Wood. All rights reserved."
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
-#include %../Core/core.reds
+#include %PWAW-I64-int64.def
+#include %PWAW-I64-greater.reds
+
+comment {
 
 PWAW-I64-sub: func [
   ;; subtracts the 2nd argument from the 1st and places the answer in the 3rd
   ;; returns integer!:
   ;;    0 - success
-	i                 [PWAW-C-int64!] 
-	j                 [PWAW-C-int64!]
-	k                 [PWAW-C-int64!]
+	i                 [PWAW-I64-int64!] 
+	j                 [PWAW-I64-int64!]
+	k                 [PWAW-I64-int64!]
 	return:           [integer!]
 	/local
 	  carry           [integer!]
@@ -34,9 +37,9 @@ PWAW-I64-div: func [
   ;; returns integer!:
   ;;    0 - success
   ;;    1 - zero divide - answer is set to zero
-	i                 [PWAW-C-int64!] 
-	j                 [PWAW-C-int64!]
-	k                 [PWAW-C-int64!]
+	i                 [PWAW-I64-int64!] 
+	j                 [PWAW-I64-int64!]
+	k                 [PWAW-I64-int64!]
 	return:           [integer!]
 ][
   either all [
@@ -51,3 +54,5 @@ PWAW-I64-div: func [
     0
   ]
 ]
+
+}

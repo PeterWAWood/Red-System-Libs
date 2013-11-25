@@ -1,0 +1,6 @@
+Red/System []
+
+PWAW-I64-int64!: alias struct! [ 
+	low			[PWAW-I64-uint32!]
+	high		[integer!]
+]

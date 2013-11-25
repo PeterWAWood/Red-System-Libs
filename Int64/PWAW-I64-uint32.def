@@ -1,0 +1,3 @@
+Red/System []
+
+#define PWAW-I64-uint32!	[pointer! [integer!]]
