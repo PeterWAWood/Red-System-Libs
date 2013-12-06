@@ -6,8 +6,8 @@ Red/System [
 	License: "BSD-3 - https://github.com/dockimbel/Red/blob/origin/BSD-3-License.txt"
 ]
 
-#include %../../quick-test/quick-test.reds
-#include %../date-time.reds
+#include %../../quick-test.reds
+#include %../PWAW-DT-date-time.reds
 
 ~~~start-file~~~ "now"
 
@@ -15,7 +15,7 @@ Red/System [
     
 	--test-- "tv-1"
 	--assert 0 = PWAW-DT-now n-now
-	--assert n-now/year > 2011
+	--assert n-now/year > 2012
 	--assert n-now/month > 0
 	--assert n-now/month < 13
 	--assert n-now/day > 0

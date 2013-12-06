@@ -6,8 +6,8 @@ Red/System [
 	License: "BSD-3 - https://github.com/dockimbel/Red/blob/origin/BSD-3-License.txt"
 ]
 
-#include %../../quick-test/quick-test.reds
-#include %../date-time.reds
+#include %../../quick-test.reds
+#include %../PWAW-DT-date-time.reds
 
 ~~~start-file~~~ "mold-date"
     
@@ -24,7 +24,7 @@ Red/System [
 	  d/tz-hours:             8
 	  d/tz-minutes:           0
 	--assert 1 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "abcdefghijklmnopqrstuvwxy" md
+	--assert PWAW-C-str-equal? "abcdefghijklmnopqrstuvwxy" md
 	
 	--test-- "md-2"
 	  md: "abcdefghijklmnopqrstuvwxyz"
@@ -39,7 +39,7 @@ Red/System [
 	  d/tz-hours:           8
 	  d/tz-minutes:         0
 	--assert 0 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "13-Jan-2012/16:46:27+8:00" md
+	--assert PWAW-C-str-equal? "13-Jan-2012/16:46:27+8:00" md
 	
 	--test-- "md-3"
 	  md: "abcdefghijklmnopqrstuvwxyz"
@@ -54,7 +54,7 @@ Red/System [
 	  d/tz-hours:           8
 	  d/tz-minutes:         0
 	--assert 0 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "1-Jan-2012/16:46:27+8:00" md
+	--assert PWAW-C-str-equal? "1-Jan-2012/16:46:27+8:00" md
 	
 	--test-- "md-4"
 	  md: "abcdefghijklmnopqrstuvwxyz"
@@ -69,7 +69,7 @@ Red/System [
 	  d/tz-hours:           8
 	  d/tz-minutes:         0
 	--assert 0 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "1-Jan-2012/08:46:27+8:00" md
+	--assert PWAW-C-str-equal? "1-Jan-2012/08:46:27+8:00" md
 	
 	--test-- "md-5"
 	  md: "abcdefghijklmnopqrstuvwxyz"
@@ -84,7 +84,7 @@ Red/System [
 	  d/tz-hours:           8
 	  d/tz-minutes:         0
 	--assert 0 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "1-Jan-2012/08:06:07+8:00" md
+	--assert PWAW-C-str-equal? "1-Jan-2012/08:06:07+8:00" md
 	
 	--test-- "md-6"
 	  md: "abcdefghijklmnopqrstuvwxyz"
@@ -99,7 +99,7 @@ Red/System [
 	  d/tz-hours:           -5
 	  d/tz-minutes:         0
 	--assert 0 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "1-Jan-2012/08:46:27-5:00" md
+	--assert PWAW-C-str-equal? "1-Jan-2012/08:46:27-5:00" md
 	
 	--test-- "md-7"
 	  md: "abcdefghijklmnopqrstuvwxyz"
@@ -114,7 +114,7 @@ Red/System [
 	  d/tz-hours:           -12
 	  d/tz-minutes:         0
 	--assert 0 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "1-Jan-2012/08:46:27-12:00" md
+	--assert PWAW-C-str-equal? "1-Jan-2012/08:46:27-12:00" md
 	
 	--test-- "md-8"
 	  md: "abcdefghijklmnopqrstuvwxyz"
@@ -129,7 +129,7 @@ Red/System [
 	  d/tz-hours:           18
 	  d/tz-minutes:         0
 	--assert 0 = PWAW-DT-mold-date d md
-	--assert PWAW-C-compare-strings "1-Jan-2012/08:46:27+18:00" md
+	--assert PWAW-C-str-equal? "1-Jan-2012/08:46:27+18:00" md
 			
 ~~~end-file~~~
 

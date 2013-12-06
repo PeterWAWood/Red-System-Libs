@@ -1,7 +1,7 @@
 Red/System [
 	Purpose:     "Load integer function"
 	Author:      "Peter W A Wood"
-	Version:     0.1.1
+	Version:     0.2
 	Rights:      "Copyright © 2012-2103 Peter W A Wood. All rights reserved."
 	License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
@@ -12,15 +12,16 @@ PWAW-C-load-int: func [
 	;; it assumes that the string is a valid integer literal
 	;; this is initial versions only handles decimal integers
 	;; returns integer! :
+	;;		0	- successful
 	;;		1   - invalid integer supplied
 	;;
 	;; the function expects a c-string as the first argument
 	;; and a pointer to the integer to be loaded as its second.
-	s     				[c-string!]
-	i     				[pointer! [integer!]]
-	return: 			[integer!]
+	s					[c-string!]
+	i					[pointer! [integer!]]
+	return:				[integer!]
 	/local
-		neg?  			[logic!]
+		neg?			[logic!]
 ][
 	if not PWAW-C-str-int? s [return 1]
 	
