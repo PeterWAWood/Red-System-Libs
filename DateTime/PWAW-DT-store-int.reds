@@ -15,8 +15,12 @@ PWAW-DT-store-int: func [
   pi          [pointer! [integer!]]
   return:     [integer!]     
 ][
-  either any [
+  if any [
     not PWAW-C-str-int? s 
     0 <> PWAW-C-load-int s pi
-  ][1][0]
+  ][
+  	  return 1
+  ]
+  	  
+  0
 ]

@@ -117,51 +117,6 @@ PWAW-DT-time-zone!: alias struct! [
 	]
 ]
 
-PWAW-DT-date-difference: func [
-  {returns the difference between two dates in seconds}
-  date1           [PWAW-DT-date!]           
-  date2           [PWAW-DT-date!]
-  return:         [integer!]     "Difference between the two dates in seconds"
-  /local
-  tm              [PWAW-DT-tm!]
-  time1           [integer!]
-  tz1             [integer!]
-  time2           [integer!]
-  tz2             [integer!]
-  ft              [PWAW-C-int64!]
-  time            [PWAW-C-int64!]
-  ten-million     [PWAW-C-int64!]
-][
-  ft: declare PWAW-C-int64!
-  tm: declare PWAW-DT-tm!
-  time: declare PWAW-C-int64!
-  ten-million: declare PWAW-C-int64!
-  ten-million/low: 10000000
-  PWAW-DT-date-to-tm date1 tm
-  PWAW-DT-tm-to-filetime tm ft lf
-  PWAW-I64-div ft ten-million time
-  time1: time/low
-  tz1: (date1/tz-hours * 3600)
-  either tz1 < 0 [
-    tz1: tz1 - (date1/tz-minutes * 60)
-  ][
-    tz1: tz1 + (date1/tz-minutes * 60)    
-  ]
-  time1: time1 + tz1 
-  PWAW-DT-date-to-tm date2 tm
-  PWAW-DT-tm-to-filetime tm ft
-  PWAW-I64-div ft ten-million time
-  time2: time/low
-  tz2: (date2/tz-hours * 3600)
-  either tz2 < 0 [
-    tz2: tz2 - (date2/tz-minutes * 60)
-  ][
-    tz2: tz2 + (date2/tz-minutes * 60)    
-  ]
-  time2: time2 + tz2
-  time1 - time2
-]
-
 PWAW-DT-date-to-tm: func [
   "private"
   date             [PWAW-DT-date!]

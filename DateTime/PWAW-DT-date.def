@@ -19,3 +19,13 @@ PWAW-DT-date!: alias struct! [
 	tz-minutes			[integer!]
 ]
 
+#define PWAW-DT-ZERO-DATE(d) [
+	d/year: 			0
+	d/month: 			0
+	d/hour: 			0
+	d/minutes: 			0
+	d/seconds:			0
+	d/microseconds:		0
+	d/tz-hours:			0
+	d/tz-minutes:		0	
+]

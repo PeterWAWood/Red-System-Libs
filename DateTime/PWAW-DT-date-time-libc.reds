@@ -55,53 +55,6 @@ PWAW-DT-tm!: alias struct! [
 	]
 ]
 
-PWAW-DT-date-difference: func [
-;; returns the difference between two dates in seconds
-  date1           [PWAW-DT-date!]
-  date2           [PWAW-DT-date!]
-  return:         [integer!]
-  /local
-  tm              [PWAW-DT-tm!]
-  time1           [integer!]
-  time2           [integer!]
-  tz              [integer!]
-][
-  tm: declare PWAW-DT-tm!
-  tm/zone: "                    "
-  tz: date1/tz-hours * 60
-  either tz < 0 [
-    tz: tz - date1/tz-minutes
-  ][
-    tz: tz + date1/tz-minutes
-  ]
-  tz: tz * 60
-  tm/sec: date1/seconds
-  tm/min: date1/minutes 
-  tm/hour: date1/hour 
-  tm/mday: date1/day 
-  tm/mon:  date1/month - 1 
-  tm/year: date1/year - 1900 
-  tm/gmtoff: tz
-  time1: PWAW-DT-make-gnu-time tm
-  tm/zone: "                    "
-  tz: date2/tz-hours * 60
-  either tz < 0 [
-    tz: tz - date2/tz-minutes
-  ][
-    tz: tz + date2/tz-minutes
-  ]
-  tz: tz * 60
-  tm/sec: date2/seconds
-  tm/min: date2/minutes 
-  tm/hour: date2/hour 
-  tm/mday: date2/day 
-  tm/mon:  date2/month - 1 
-  tm/year: date2/year - 1900 
-  tm/gmtoff: tz
-  time2: PWAW-DT-make-gnu-time tm
-  time1 - time2  
-]
-
 PWAW-DT-now: func [
   {provides the current date/time}
   result      [PWAW-DT-date!]
