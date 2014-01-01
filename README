@@ -1,10 +1,10 @@
-I AM IN THE PROCESS OF "REFACTORING" THIS LIBRARY AND IT IS POSSIBLE THAT SOME FUNCTIONS WILL NOT COMPILE LET ALONE RUN.
+I AM IN THE PROCESS OF "REFACTORING" THIS LIBRARY. The Core and DateTime have been refactored so that the library can either be included in toto or selectively. The LibTomMaths and UTF8 libs have yet to be refactored.
 
 This is a library of Red/System function collections. The collections that have been started are:
        
        Core          - Core functions to support other libs 
        DateTime      - Date and time functions
-       LibTomMaths   - A partial implementation of LibTom
+       LibTomMaths   - The start of a partial implementation of LibTom
        UTF8          - Functions for handling UTF-8 strings
 
 They are all at a very early stage of development. 
