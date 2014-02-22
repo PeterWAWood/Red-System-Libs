@@ -1,4 +1,4 @@
-I AM IN THE PROCESS OF "REFACTORING" THIS LIBRARY. The Core and DateTime have been refactored so that the library can either be included in toto or selectively. The LibTomMaths and UTF8 libs have yet to be refactored. The docs have yet to be updated.
+I AM IN THE PROCESS OF "REFACTORING" THIS LIBRARY. The Core and DateTime have been refactored so that the library can either be included in toto or selectively. The LibTomMaths and UTF8 libs have yet to be refactored. The docs have yet to be updated. 
 
 This is a library of Red/System function collections. The collections that have been started are:
        
@@ -9,14 +9,10 @@ This is a library of Red/System function collections. The collections that have 
 
 They are all at a very early stage of development. 
 
-By the convention, the functions return an integer return code whilst their results are returned
-in a user supplied argument (or arguments). The exception to this are functions where the return
-value is either true or false. Typically the name of these functions end in a ?.
+By the convention, the functions return an integer return code whilst their results are returned in a user supplied argument (or arguments). The exception to this are functions where the return value is either true or false. Typically the name of these functions end in a ?.
 
-Each of the function and compiler definition names begins with the prefix PWAW- followed by a short mnenomic to
-indicate which library (e.g. PWAW-LTM for LibTomMaths).
+Each of the function and compiler definition names begins with the prefix PWAW- followed by a short mnenomic to indicate which library (e.g. PWAW-LTM for LibTomMaths).
 
-The script for compilation and testing is written in Ruby and require the correct path to the Red compiler to
-be recorded in the file path-to-red.txt. (This will be replacesd by a Red script once Red has relevant capabilities.)
+The script for compilation and testing is written in Ruby and require the correct path to the Red compiler to be recorded in the file path-to-red.txt. (This will be replacesd by a Red script once Red has relevant capabilities.)
 
 
