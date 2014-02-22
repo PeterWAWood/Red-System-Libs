@@ -13,6 +13,6 @@ By the convention, the functions return an integer return code whilst their resu
 
 Each of the function and compiler definition names begins with the prefix PWAW- followed by a short mnenomic to indicate which library (e.g. PWAW-LTM for LibTomMaths).
 
-The script for compilation and testing is written in Ruby and require the correct path to the Red compiler to be recorded in the file path-to-red.txt. (This will be replacesd by a Red script once Red has relevant capabilities.)
+The script for compilation and testing is written in Ruby and requires the correct path to the Red compiler to be recorded in the file path-to-red.txt. (This will be replacesd by a Red script once Red has relevant capabilities.)
 
 
