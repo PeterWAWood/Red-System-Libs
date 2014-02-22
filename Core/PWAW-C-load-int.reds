@@ -7,6 +7,8 @@ Red/System [
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
+#include %PWAW-C-str-int.reds
+
 PWAW-C-load-int: func [
 	;; loads an integer from a string into the supplied integer
 	;; it assumes that the string is a valid integer literal
