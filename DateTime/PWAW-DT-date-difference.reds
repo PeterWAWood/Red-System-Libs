@@ -12,8 +12,8 @@ Red/System [
 
 #include %../Core/PWAW-C-core.reds
 
-#include %PWAW-DT-date.def
-#include %PWAW-DT-duration.def
+#include %PWAW-DT-date-def.reds
+#include %PWAW-DT-duration-def.reds
 #include %PWAW-DT-date-to-days.reds
 #include %PWAW-DT-days-in-year-todate.reds
 #include %PWAW-DT-duration-difference.reds

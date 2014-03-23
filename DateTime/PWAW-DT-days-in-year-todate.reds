@@ -9,7 +9,7 @@ Red/System [
 
 #include %../Core/PWAW-C-core.reds
 
-#include %PWAW-DT-date.def
+#include %PWAW-DT-date-def.reds
 
 PWAW-DT-days-in-year-todate: func [
   {Calculates the number of days in the year before this date}

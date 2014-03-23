@@ -8,7 +8,7 @@ Red/System [
 ]
 
 
-#include %PWAW-DT-date.def
+#include %PWAW-DT-date-def.reds
 #include %PWAW-DT-date-to-days.reds
 #include %PWAW-DT-days-to-date.reds
 

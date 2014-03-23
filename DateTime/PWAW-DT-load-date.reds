@@ -9,7 +9,7 @@ Red/System [
 
 #include %../Core/PWAW-C-core.reds
 
-#include %PWAW-DT-date.def
+#include %PWAW-DT-date-def.reds
 
 PWAW-DT-load-date: func [
 	{Loads the supplied date structure from a string}

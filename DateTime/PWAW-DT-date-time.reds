@@ -9,8 +9,8 @@ Red/System [
 
 #include %../Core/PWAW-C-core.reds
 
-#include %PWAW-DT-date.def
-#include %PWAW-DT-time.def
+#include %PWAW-DT-date-def.reds
+#include %PWAW-DT-duration-def.reds
 
 #switch OS [
 	Windows  [#include %PWAW-DT-date-time-win32.reds]

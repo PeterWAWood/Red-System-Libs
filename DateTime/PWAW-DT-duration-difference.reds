@@ -11,7 +11,7 @@ Red/System [
 
 #include %../Core/PWAW-C-core.reds
 
-#include %PWAW-DT-duration.def
+#include %PWAW-DT-duration-def.reds
 
 PWAW-DT-duration-difference: func [
 	{Subtracts a shorter duration from a longer one}

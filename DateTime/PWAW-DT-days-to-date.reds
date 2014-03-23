@@ -8,7 +8,7 @@ Red/System [
 ]
 
 
-#include %PWAW-DT-date.def
+#include %PWAW-DT-date-def.reds
 #include %PWAW-DT-leapyear.reds
 
 PWAW-DT-days-to-date: func [

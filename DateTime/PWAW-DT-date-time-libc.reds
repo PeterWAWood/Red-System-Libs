@@ -1,14 +1,10 @@
 Red/System [
   Purpose:     "LibC module for date-time library"
   Author:      "Peter W A Wood"
-  Version:     0.1.0
-  Rights:      "Copyright © 2011 Peter W A Wood. All rights reserved."
+  Version:     0.2.0
+  Rights:      "Copyright © 2011 - 2014 Peter W A Wood. All rights reserved."
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
-]
-
-PWAW-DT-cpu-ticks!: alias struct! [
-  ticks             [integer!]
 ]
 
 PWAW-DT-timeval!: alias struct! [
@@ -32,26 +28,19 @@ PWAW-DT-tm!: alias struct! [
 
 #import [
 	LIBC-FILE cdecl [
-	  PWAW-DT-as-localtime: "localtime_r" [
-	    time        [pointer! [integer!]]
-	    result      [PWAW-DT-tm!]
-	    return:     [PWAW-DT-tm!]
-	  ]
-	  PWAW-DT-get-cpu-clicks: "clock" [
-	    return:     [integer!]
-	  ]
-	  PWAW-DT-get-time-of-day: "gettimeofday" [
-	    time-of-day [PWAW-DT-timeval!]
-	    timezone    [struct! [
-	        mins    [integer!]
-	        dst     [integer!]
-	    ]]
-	    return:     [integer!]
-	  ]
-	  PWAW-DT-make-gnu-time:  "mktime" [
-	    tm          [PWAW-DT-tm!]
-	    return:     [integer!]
-	  ]
+		PWAW-DT-as-localtime: "localtime_r" [
+			time        [pointer! [integer!]]
+			result      [PWAW-DT-tm!]
+			return:     [PWAW-DT-tm!]
+		]
+		PWAW-DT-get-time-of-day: "gettimeofday" [
+			time-of-day [PWAW-DT-timeval!]
+			timezone    [struct! [
+				mins    [integer!]
+				dst     [integer!]
+			]]
+			return:     [integer!]
+		]
 	]
 ]
 
@@ -66,13 +55,13 @@ PWAW-DT-now: func [
        3 - cannot retrieve time zone
   }
   /local
-  errcode     [integer!]
-  tz          [struct! [
+  errcode		[integer!]
+  tz			[struct! [
     mins        [integer!] 
     dst         [integer!]
   ]]
-  time        [integer!]
-  tm          [PWAW-DT-tm!]
+  time			[integer!]
+  tm			[PWAW-DT-tm!]
 ][
   
   ;; local variables
@@ -107,44 +96,3 @@ PWAW-DT-now: func [
   0
 ]
  
-PWAW-DT-timer: func [
-  {A timer function}
-  action        [integer!]
-  {
-   action = 1 (Start timer) 
-     fills start-tick with the current cpu tick
-   use PWAW-DT-start-timer start-tick ticks-taken to start
-   action = 2 (Read timer)
-      calculates the time-taken from the supplied start-time
-   use PWAW-DT-time-taken start-tick ticks-taken to read the timer}
-  start-tick    [pointer! [integer!]]
-  {the ticks when the timer was started}
-  ticks-taken   [pointer! [integer!]]
-  {the ticks taken}
-  return:       [integer!]
-    {   0 - successful
-        1 - cannot retrieve time from os
-        2 - no start tick supplied
-        3 - start tick lower than current tick
-        4 - difference to large for int 32
-    }
-  /local
-    current-tick  [integer!]
-][
-  
-  switch action [
-    1 [
-      start-tick/value: PWAW-DT-get-cpu-clicks
-      either start-tick/value < 0 [return 1] [return 0]
-    ]
-    
-    2 [
-      current-tick: PWAW-DT-get-cpu-clicks
-      if current-tick < 0 [return 1]
-      if start-tick/value < 0 [return 2]
-      if start-tick/value > current-tick [return 3]
-      ticks-taken/value: current-tick - start-tick/value
-      return 0
-    ] 
-  ]
-]

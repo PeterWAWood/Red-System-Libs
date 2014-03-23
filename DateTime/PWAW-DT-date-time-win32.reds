@@ -1,20 +1,14 @@
 Red/System [
   Purpose:     "Win32 module for date-time library"
   Author:      "Peter W A Wood"
-  Version:     "0.1.0"
-  Rights:      "Copyright © 2012 Peter W A Wood. All rights reserved."
+  Version:     "0.2.0"
+  Rights:      "Copyright © 2012-2014 Peter W A Wood. All rights reserved."
   License:     "Distributed under the Boost Software License, Version 1.0."
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
-#include %../Int64/int64.reds
 #define PWAW-DT-MICROSECONDS 1000000
 #define PWAW-DT-MILLISECONDS 1000
-
-PWAW-DT-cpu-ticks!: alias struct! [
-  ticks             [integer!]
-  ticks-high        [integer!]
-]
  
 PWAW-DT-tm!: alias struct! [
   year-low         [byte!]
@@ -95,23 +89,11 @@ PWAW-DT-time-zone!: alias struct! [
 
 #import [
 	"Kernel32.dll" stdcall [
-	  PWAW-DT-get-cpu-ticks: "QueryPerformanceCounter" [
-	    ticks       [PWAW-DT-cpu-ticks!]
-	    return:     [integer!]
-	  ]
 	  PWAW-DT-get-local-time: "GetLocalTime" [
 	    date-time   [PWAW-DT-tm!]
 	  ]
 	  PWAW-DT-get-time-zone: "GetTimeZoneInformation" [
 	    time-zone   [PWAW-DT-time-zone!]
-	    return:     [integer!]
-	  ]
-	  PWAW-DT-tm-to-filetime: "SystemTimeToFileTime" [
-	    tm          [PWAW-DT-tm!]
-	    ft          [PWAW-C-int64!]
-	    return:     [integer!]
-	  ]
-	  get-last-error: "GetLastError" [
 	    return:     [integer!]
 	  ]
 	]
@@ -200,57 +182,6 @@ PWAW-DT-now: func [
 
   ;; successful return
   0
-]
-
-PWAW-DT-timer: func [
-  {A timer function}
-  action        [integer!]
-  {
-   action = 1 (Start timer) 
-     fills start-tick with the current cpu tick
-   use PWAW-DT-start-timer start-tick ticks-taken to start
-   action = 2 (Read timer)
-      calculates the time-taken from the supplied start-time
-   use PWAW-DT-time-taken start-tick ticks-taken to read the timer}
-  start-tick    [PWAW-DT-cpu-ticks!]
-  {the ticks when the timer was started}
-  ticks-taken   [PWAW-DT-cpu-ticks!]
-  {the ticks taken}
-  return:       [integer!]
-    {   0 - successful
-        1 - cannot retrieve time from os
-        2 - no start tick supplied
-        3 - start tick lower than current tick
-        4 - difference to large for int 32
-    }
-  /local
-    current-tick  [PWAW-DT-cpu-ticks!]
-][
-  current-tick: declare PWAW-DT-cpu-ticks!
-  
-  switch action [
-    1 [
-      either 0 = PWAW-DT-get-cpu-ticks start-tick [return 1] [return 0]
-    ]
-    
-    2 [
-      if 0 = PWAW-DT-get-cpu-ticks current-tick [return 1]
-      if start-tick/ticks-high < 0 [return 2]
-      if 0 <> PWAW-I64-sub  (as PWAW-C-int64! current-tick)
-                            (as PWAW-C-int64! start-tick)
-                            (as PWAW-C-int64! ticks-taken) [
-        return 3
-      ]
-      if any [                      ;; too big for integer! ?
-        ticks-taken/ticks-high > 0
-        ticks-taken/ticks < 0
-      ][
-        return 4                    ;; but still provide the actual difference
-      ]
-      
-      return 0
-    ] 
-  ]
 ]
 
 // debugging function

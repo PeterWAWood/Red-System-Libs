@@ -7,6 +7,7 @@ Red/System [
 	"See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt"
 ]
 
+#include %PWAW-DT-date-def.reds
 #include %PWAW-DT-UTC.reds
 
 PWAW-DT-later?: func [

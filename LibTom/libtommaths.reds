@@ -3,66 +3,12 @@ Red/System [
   Author:	"PeterWAWood"
   Version:	0.1.0
   File:		%libtommaths.reds		 
-  Rights:	"A reduced implementation of LibTomMath authored by Tom St Denis"
+  Descripton:	"A reduced implementation of LibTomMath authored by Tom St Denis"
   License:	{Distributed under the Boost Software License, Version 1.0.
 			See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt}
 ]
 
-#define LTM-digit!			byte!				;; needs to hold 
-												;;  DIGIT-BIT + 1 bits
-#define LTM-digit-ptr!		[pointer! [byte!]]
-#define LTM-word!			integer!			;; needs to hold 
-												;;  2*DIGIT-BIT + 1 bits 
-#define LTM-PREC			32          		;; default precision
-												;;  (no. of digits)
-#define LTM-DIGIT-BIT		7					;; bits in a digit
-
-#define LTM-ZERO-DIGIT		#"^(00)"
-
-#define LTM-LT				-1				    ;; less than
-#define LTM-EQ				0				    ;; equal
-#define LTM-GT				1               	;; greater than
-
-#define	LTM-OKAY 			0	                ;; no error occurred
-#define LTM-MEM				1               	;; out of memory
-#define LTM-INVALID			2				    ;; invalid mp-integer
-#define LTM-INVALID-ARGS	3               	;; invalid function arguments
-												;;  were supplied
-#define LTM-TOO-BIG			4				    ;; supplied number was too big
-
-#define LTM-YES				true
-#define LTM-NO				false
-												
-#define LTM-ZPOS       		0                  	;; positive integer
-#define LTM-NEG        		1   			    ;; negative integer
-
-LTM-MASK: (((as LTM-digit! 1) << as LTM-digit! LTM-DIGIT-BIT) - 
-			(as LTM-digit! 1))
-
-#define LTM-pad-size  [
-	size: size + (LTM-PREC * 2) - (size % LTM-PREC)	
-]
-
-LTM-digit-index: 0
-#define LTM-zero-set(digit start end) [
-	LTM-digit-index: end
-	until [
-		digit/LTM-digit-index: LTM-ZERO-DIGIT
-		LTM-digit-index: LTM-digit-index - 1
-		LTM-digit-index < start
-	]
-]
-
-#define LTM-zero?(a) [
-	either a/used = 0 [LTM-YES] [LTM-NO]
-]
-
-LTM-int!: alias struct! [
-	used		[integer!]
-	alloc		[integer!]
-	sign		[integer!]
-	mp-digit	[LTM-digit-ptr!]
-]
+#include %libtommaths.def
 
 LTM-abs: func [
 	"Provides the absolute value of a mp-int"
