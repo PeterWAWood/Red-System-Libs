@@ -9,7 +9,7 @@ This is a library of Red/System function collections. The collections that have 
 
 They are all at a very early stage of development. 
 
-By the convention, the functions return an integer return code whilst their results are returned in a user supplied argument (or arguments). The exception to this are functions where the return value is either true or false. Typically the name of these functions end in a ?.
+By convention, the functions return an integer return code whilst their results are returned in a user supplied argument (or arguments). The exception to this are functions where the return value is either true or false. Typically the name of these functions end in a ?.
 
 Each of the function and compiler definition names begins with the prefix PWAW- followed by a short mnenomic to indicate which library (e.g. PWAW-LTM for LibTomMaths).
 
