@@ -19,11 +19,13 @@ Red/System [
 #include %LTM-copy.reds
 #include %LTM-copy-init.reds
 #include %LTM-div-2.reds
+#include %LTM-div-2d.reds
 #include %LTM-grow.reds
 #include %LTM-init.reds
 #include %LTM-init-multi.reds
 #include %LTM-init-size.reds
 #include %LTM-lshd.reds
+#include %LTM-mod-2d.reds
 #include %LTM-mul-2.reds
 #include %LTM-mul-2d.reds
 #include %LTM-negate.reds

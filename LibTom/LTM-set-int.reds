@@ -7,17 +7,20 @@ Red/System [
 ]
 
 #include %libtommaths.def
+#include %LTM-clamp.reds
+#include %LTM-mul-2d.reds
+#include %LTM-zero.reds
 
 LTM-set-int: func [
 	"Sets a mp-int to a 32-bit integer"
-	mp-int				                [LTM-int!]			"The mp integer to be set"
-	int					                  [integer!]			"The integer"
-	return:				                [integer!]			"LTM-OKAY or an error code"
-	/local
-		i				                    [integer!]			;; loop counter
-		j				                    [integer!]			;; temp
-		k				                    [integer!]			;; temp
-		response		                [integer!]			;; response from lib calls
+	mp-int					[LTM-int!]			"The mp integer to be set"
+	int						[integer!]			"The integer"
+	return:					[integer!]			"LTM-OKAY or an error code"
+	/local      
+		i					[integer!]			;; loop counter
+		j					[integer!]			;; temp
+		k					[integer!]			;; temp
+		response			[integer!]			;; response from lib calls
 ][
 	
 	LTM-zero mp-int

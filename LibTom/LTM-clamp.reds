@@ -1,9 +1,8 @@
 Red/System [
-  Purpose:	"Trims unused digits from an integer"
-  Author:	"PeterWAWood"
-  Version:	0.1.0
-  License:	{Distributed under the Boost Software License, Version 1.0.
-			See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt}
+	Purpose:	"Trims unused digits from an integer"
+	Author:		"Peter W A Wood"
+	Version:	0.1.0
+	License:	{Distributed under the Boost Software License, Version 1.0.}
 ]
 
 #include %libtommaths.def
@@ -11,7 +10,7 @@ Red/System [
 LTM-clamp: func [
 	"Trims unused digits from an mp-int!"
 	mp-int			[LTM-int!]			"The integer to be trimmed"
-	return:			[integer!]				"LTM-OKAY or an error code"
+	return:			[integer!]			"LTM-OKAY or an error code"
 	/local
 		i			[integer!]	
 ][

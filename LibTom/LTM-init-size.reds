@@ -1,22 +1,21 @@
 Red/System [
-  Purpose:	"Initalises a new mp-int (multiple-precision integer) to a given size"
-  Author:	"PeterWAWood"
-  Version:	0.1.0
-  License:	{Distributed under the Boost Software License, Version 1.0.
-			See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt}
+	Purpose:	"Initalises a new mp-int (multiple-precision integer) to a given size"
+	Author:		"Peter W A Wood"
+	Version:	0.1.0
+	License:	{https://github.com/red/red/blob/master/BSL-License.txt}
 ]
 
 #include %libtommaths.def
 
 LTM-init-size: func [
 	"Initalises a new mp-int (multiple-precision integer) to a given size"
-	mp-int			        [LTM-int!]				"The integer to be intialised"
-	size			          [integer!]				"Minimum number of digits"
-	return:			        [integer!]				"LTM-OKAY or an error code"		
+	mp-int				[LTM-int!]				"The integer to be intialised"
+	size				[integer!]				"Minimum number of digits"
+	return:				[integer!]				"LTM-OKAY or an error code"		
 ][
 	
 	;; ensure that there are always at least LTM-PREC digits empty 
-	LTM-pad-size
+	LTM-pad-size(size)
 	
 	;; allocate the memory
 	mp-int/mp-digit: allocate  size

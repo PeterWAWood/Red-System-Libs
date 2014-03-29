@@ -1,24 +1,25 @@
 Red/System [
-  Purpose:	"Copies an mp-int to another"
-  Author:	"PeterWAWood"
-  Version:	0.1.0
-   License:	{Distributed under the Boost Software License, Version 1.0.
-			See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt}
+	Purpose:	"Copies an mp-int to another"
+	Author:		"PeterWAWood"
+	Version:	0.1.0
+	License:	{Distributed under the Boost Software License, Version 1.0.
+				See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt}
 ]
 
 #include %libtommaths.def
+#include %LTM-grow.reds
 
 LTM-copy: func [
 	"Copies an mp-int to another"
-	a				    [LTM-int!]			  "The integer to be copied"
-	b				    [LTM-int!]			  "The copy"	
-	return:			[integer!]				"LTM-OKAY or an error code"
-	/local
+	a				    [LTM-int!]			"The integer to be copied"
+	b				    [LTM-int!]			"The copy"	
+	return:				[integer!]			"LTM-OKAY or an error code"
+	/local	
 		i			    [integer!]
-		response	[integer!]
+		response		[integer!]
 	
 ][
-	
+
 	;; do nothing if a and b are the same
 	if a = b [return LTM-OKAY]
 	

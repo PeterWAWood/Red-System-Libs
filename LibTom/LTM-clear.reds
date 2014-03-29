@@ -1,9 +1,8 @@
 Red/System [
-  Purpose:	"Clears a mp-int freeing the memory used for digits"
-  Author:	"PeterWAWood"
-  Version:	0.1.0
-  License:	{Distributed under the Boost Software License, Version 1.0.
-			See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt}
+	Purpose:	"Clears a mp-int freeing the memory used for digits"
+	Author:		"Peter W A Wood"
+	Version:	0.1.0
+	License:	{See https://github.com/red/red/blob/master/system/runtime/BSL-License.txt}
 ]
 
 #include %libtommaths.def

@@ -18,6 +18,9 @@ Red/System [
 #define LTM-DIGIT-BIT		7					;; bits in a digit
 
 #define LTM-ZERO-DIGIT		#"^(00)"
+#define LTM-ONE-DIGIT		#"^(01)"
+#define LTM-DIGIT-ZERO		#"^(00)"
+#define LTM-DIGIT-ONE		#"^(01)"
 
 #define LTM-LT				-1				    ;; less than
 #define LTM-EQ				0				    ;; equal
@@ -39,7 +42,7 @@ Red/System [
 LTM-MASK: (((as LTM-digit! 1) << as LTM-digit! LTM-DIGIT-BIT) - 
 			(as LTM-digit! 1))
 
-#define LTM-pad-size  [
+#define LTM-pad-size(size) [
 	size: size + (LTM-PREC * 2) - (size % LTM-PREC)	
 ]
 

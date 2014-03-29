@@ -2,19 +2,18 @@ Red/System [
   Purpose:	"Add space for more digits to a mp-int"
   Author:	"PeterWAWood"
   Version:	0.1.0
-  License:	{Distributed under the Boost Software License, Version 1.0.
-			See https://github.com/dockimbel/Red/blob/master/red-system/runtime/BSL-License.txt}
+  License:	{https://github.com/red/red/blob/master/red-system/runtime/BSL-License.txt}
 ]
 
 #include %libtommaths.def
 
 LTM-grow: func [
 	"Add space for more digits to a mp-int"
-	mp-int			      [LTM-int!]				  "The integer to be expanded"
-	size			        [integer!]				  "The desired size of the mp-int"
-	return:			      [integer!]				  "LTM-OKAY or an error code"
+	mp-int				[LTM-int!]			"The integer to be expanded"
+	size				[integer!]			"The desired size of the mp-int"
+	return:				[integer!]			"LTM-OKAY or an error code"
 	/local
-		tmp			        [LTM-digit-ptr!]
+		tmp				[LTM-digit-ptr!]
 ][
 	
 	;; increase the size of mp-int if the requested size is greater than its
@@ -22,7 +21,7 @@ LTM-grow: func [
 	if mp-int/alloc < size [
 	
 		;; ensure that there are always at least LTM-PREC digits empty 
-		LTM-pad-size
+		LTM-pad-size(size)
 	
 		;; re-allocate the digit array
 		;;  the required space is allocated to a temporary variable first

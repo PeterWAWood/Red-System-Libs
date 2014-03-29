@@ -9,6 +9,9 @@ Red/System [
 ]
 
 #include %libtommaths.def
+#include %LTM-clamp.reds
+#include %LTM-grow.reds
+#include %LTM-lshd.reds
 
 LTM-mul-2d: func [
 	"Shift left by a supplied number of bits"

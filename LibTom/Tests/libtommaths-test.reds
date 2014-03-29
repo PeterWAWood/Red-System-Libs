@@ -36,12 +36,14 @@ print-digits: func [
 #include %mp-copy-group.reds
 #include %mp-copy-init-group.reds
 #include %mp-div-2-group.reds
+#include %mp-div-2d-group.reds
 #include %mp-grow-group.reds
 #include %mp-init-group.reds
 #include %mp-init-multi-group.reds
 #include %mp-init-size-group.reds
 #include %mp-lshb-group.reds
 #include %mp-lshd-group.reds
+#include %mp-mod-2d-group.reds
 #include %mp-mul-2-group.reds
 #include %mp-neg-group.reds
 #include %mp-rshd-group.reds
