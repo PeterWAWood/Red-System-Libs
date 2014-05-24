@@ -45,20 +45,23 @@ Red [
 			
 	--assert scs2-r {EspañolРусскийSlovenščina}
 	
+	
 	--test-- "scs3"
 		scs3-r: routine: [
 			str			[string!]
 			return:		[logic!]
 			/local
 				c-str			[c-string!]
+				expected		[c-string!]
 				ret-value		[logic!]
 		][
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/Core/PWAW-C-core.reds
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/UTF8/string-c-string.reds
 			c-str: PWAW-string-c-string str
+			expected: {^(F0)^(9D)^(84)^(A2)}
 			print [length? c-str lf]
-			print [length? {^(F0)^(9D)^(84)^(A2)} lf]
-			ret-value: PWAW-C-str-equal? {^(F0)^(9D)^(84)^(A2)} c-str
+			print [length? expected lf]
+			ret-value: PWAW-C-str-equal? expected c-str
 			print [as integer! c-str/1 lf]
 			print [as integer! c-str/2 lf]
 			print [as integer! c-str/3 lf]
@@ -69,5 +72,27 @@ Red [
 		]
 		
 		--assert scs3-r "^(01D122)"
+		
+	--test-- "scs4"
+		scs4-r: routine: [
+			str			[string!]
+			return:		[logic!]
+			/local
+				c-str			[c-string!]
+				expected		[c-string!]
+				ret-value		[logic!]
+		][
+			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/Core/PWAW-C-core.reds
+			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/UTF8/string-c-string.reds
+			c-str: PWAW-string-c-string str
+			expected: {The bass clef - ^(F0)^(9D)^(84)^(A2)}
+			print [length? expected lf]
+			print [length? c-str lf]
+			ret-value: PWAW-C-str-equal? expected c-str
+			free as byte-ptr! c-str
+			ret-value
+		]
+		
+		--assert scs4-r "The bass clef - ^(01D122)"
 	  
 ~~~end-file~~~
