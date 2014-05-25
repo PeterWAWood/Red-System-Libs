@@ -58,15 +58,8 @@ Red [
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/Core/PWAW-C-core.reds
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/UTF8/string-c-string.reds
 			c-str: PWAW-string-c-string str
-			expected: {^(F0)^(9D)^(84)^(A2)}
-			print [length? c-str lf]
-			print [length? expected lf]
+			expected: "𝄢"
 			ret-value: PWAW-C-str-equal? expected c-str
-			print [as integer! c-str/1 lf]
-			print [as integer! c-str/2 lf]
-			print [as integer! c-str/3 lf]
-			print [as integer! c-str/4 lf]
-			print [as integer! c-str/5 lf]
 			free as byte-ptr! c-str
 			ret-value
 		]
@@ -85,9 +78,7 @@ Red [
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/Core/PWAW-C-core.reds
 			#include %/Users/peter/VMShare/Code/Red-System/Red-System-Libs/UTF8/string-c-string.reds
 			c-str: PWAW-string-c-string str
-			expected: {The bass clef - ^(F0)^(9D)^(84)^(A2)}
-			print [length? expected lf]
-			print [length? c-str lf]
+			expected: {The bass clef - 𝄢}
 			ret-value: PWAW-C-str-equal? expected c-str
 			free as byte-ptr! c-str
 			ret-value
