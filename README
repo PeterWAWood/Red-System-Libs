@@ -1,9 +1,10 @@
-I AM IN THE PROCESS OF "REFACTORING" THIS LIBRARY. The Core and DateTime have been refactored so that the library can either be included in toto or selectively. The LibTomMaths and UTF8 libs have yet to be refactored. The docs have yet to be updated. 
+I AM IN THE PROCESS OF "REFACTORING" THIS LIBRARY. The Core, DateTime and I64 libs have been refactored so that the library can either be included in toto or selectively. In fact the I64 lib has been completely re-written. The LibTomMaths and UTF8 libs have yet to be refactored. The docs have yet to be updated. 
 
 This is a library of Red/System function collections. The collections that have been started are:
        
        Core          - Core functions to support other libs 
        DateTime      - Date and time functions
+       Int64         - Basic int64 arithmetic addition, subtraction, multiplication and division.
        LibTomMaths   - The start of a partial implementation of LibTom
        UTF8          - Functions for handling UTF-8 strings
 
