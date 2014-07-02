@@ -4,7 +4,7 @@ This is a library of Red/System function collections. The collections that have 
        
        Core          - Core functions to support other libs 
        DateTime      - Date and time functions
-       Int64         - Basic int64 arithmetic addition, subtraction, multiplication and division.
+       I64         - Basic int64 arithmetic addition, subtraction, multiplication and division.
        LibTomMaths   - The start of a partial implementation of LibTom
        UTF8          - Functions for handling UTF-8 strings
 
