@@ -19,14 +19,34 @@ LTM-s-mul-digs: func [
 	return:				[integer!]			"LTM-OKAY or an error code"
 	/local
 		carry			[LTM-digit!]		;; carry digit
-		i				[integer!]			;; counter
+		ia				[integer!]			;; counter
+		ib				[integer!]			;; counter
 		min				[integer!]			;; min number of digits
 		max				[integer!]			;; max number of digits
 		oldused			[integer!]			;; value of c/used at start
 		response		[integer!]			;; call response code
+		t				[LTM-int!]			;; t
 ][
 
 	;; can the fast multiplier be used
+	;; code to be added later
+	
+	
+	;; allocate a temporary MP-int of the size requested
+	response: LTM-init-size t digits
+	if response <> LTM-OKAY [
+		return response
+	]
+	t/used: digits
+	
+	;; compute the digits of the product directly
+	ix: 1
+	until [
+		
+		
+		ix: ix + 1
+		ix < a/used		
+	]
 	
 	
 	LTM-OKAY	
