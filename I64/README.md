@@ -62,7 +62,7 @@ A macro which sets the value of an int64! to zero.
 
 ## Functions
 
-The library includes the following public functions and a handful of supporting functions
+The library includes the following public functions and a handful of supporting functions.
 
 ### PWAW-I64-add a b c
 
