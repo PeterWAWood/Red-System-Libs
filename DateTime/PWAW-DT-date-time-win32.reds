@@ -145,10 +145,11 @@ PWAW-DT-now: func [
           3 - cannot retrieve time zone
   }
   /local
-  errcode     [integer!]
-  tm          [PWAW-DT-tm!]
-  tz          [PWAW-DT-time-zone!]
-  tz-return   [integer!]
+  errcode		[integer!]
+  localtime		[PWAW-DT-tm!]		
+  tm          	[PWAW-DT-tm!]
+  tz          	[PWAW-DT-time-zone!]
+  tz-return   	[integer!]
 ][
   
   ;; local variables

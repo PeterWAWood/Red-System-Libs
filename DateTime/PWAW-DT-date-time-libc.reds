@@ -56,6 +56,7 @@ PWAW-DT-now: func [
   }
   /local
   errcode		[integer!]
+  localtime		[PWAW-DT-timeval!]
   tz			[struct! [
     mins        [integer!] 
     dst         [integer!]

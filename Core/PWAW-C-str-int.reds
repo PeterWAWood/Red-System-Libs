@@ -18,9 +18,12 @@ PWAW-C-str-int?: func [
 	s				[c-string!]
 	return:			[logic!]
 	/local
+	  end			[integer!]
 	  len			[integer!]
 	  neg?			[logic!]
+	  pos			[integer!]
 	  sign?			[logic!]
+	  start			[integer!]
 ][
 	neg?: false
 	sign?: false

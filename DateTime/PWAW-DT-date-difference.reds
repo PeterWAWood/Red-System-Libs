@@ -1,6 +1,6 @@
 Red/System [
 	Purpose:     {
-		Calculates the difference between to dates in days, hours, minutes,
+		Calculates the difference between two dates in days, hours, minutes,
 		seconds and milliseconds
 	}				
 	Author:      "Peter W A Wood"
