@@ -1,4 +1,4 @@
-I AM IN THE PROCESS OF "REFACTORING" THIS LIBRARY. The Core, DateTime and I64 libs have been refactored so that the library can either be included in toto or selectively. In fact the I64 lib has been completely re-written. The LibTomMaths and UTF8 libs have yet to be refactored. The docs have yet to be updated. 
+I AM NOT CURRENTLY MAINTAING THESE LIBRARIES. 
 
 This is a library of Red/System function collections. The collections that have been started are:
        
@@ -15,5 +15,3 @@ By convention, the functions return an integer return code whilst their results 
 Each of the function and compiler definition names begins with the prefix PWAW- followed by a short mnenomic to indicate which library (e.g. PWAW-DT for Date-Time). The Lib Tom Maths library uses on LTM- as its prefix.
 
 The script for compilation and testing is written in Ruby and requires the correct path to the Red compiler to be recorded in the file path-to-red.txt. (This will be replaced by a Red script once Red has relevant capabilities.)
-
-
